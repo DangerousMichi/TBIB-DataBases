@@ -1,0 +1,162 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+body{
+   
+   background: #0a2644;
+   background-image: url(Imagen/background.png);
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   /* background: radial-gradient(circle, rgba(140,82,255,1) 20%, #0a2644 45%); */
+}
+
+#container{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    /*display: flex;
+    justify-content: center;
+    align-items: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;*/
+}
+
+h1{
+    font-size: 54.6px;
+    font-family: "Allerta Stencil", sans-serif;
+    font-weight: 50;
+    color: white;
+    margin-top: 55px;
+    margin-bottom: 10px;
+    padding: 40px;
+    text-align: center;
+}
+
+
+p{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16.6px;
+    color: white;
+    width: 800px; 
+   /* margin: 5px auto;*/
+    text-align: center;
+}
+
+#botones{
+
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 360px;
+    margin-top: 50px;
+    flex-direction: column;
+    
+
+}
+
+/* Estilo Botones */
+a{
+    position: relative;
+    text-align: center;
+    background: #fff; 
+    color: #110538;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
+    margin: 15px 0;  
+    border-radius: 10px;  
+    display: inline-flexbox;
+    
+}
+
+a:hover {
+    background: var(--clr);
+    color: var(--clr);
+    letter-spacing: 0.25em;
+    box-shadow: 0 0 35px var(--clr);
+}
+a::before{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #ccd2ec;
+}        
+a span {
+    position: relative;
+    z-index: 1;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+}
+a i{
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+a i::before{
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 80%;
+    width: 10px; 
+    height: 4px;
+    background: #261668;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+a:hover i::before{
+    width: 20px;
+    left: 20%;
+}
+a i::after{
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 20%;
+    width: 10px; 
+    height: 4px;
+    background: #261668;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+a:hover i::after{
+    width: 20px;
+    left: 80%;
+}
+/* Termina Estilo Botones */
+      
+   
+#img_background{
+    position: absolute;
+    bottom: 0;
+    text-align: left;
+}
+#img_heripuerco{
+    width: 375px; 
+}
+
+#txtfoot {
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16.6px;
+    color: white;
+    width: 750px; 
+   /* margin: 5px auto;*/
+    text-align: center;
+    margin: 80px;
+}
+
+
