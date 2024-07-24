@@ -36,7 +36,7 @@ h1::before, h1::after {
     width: 100%;
     height: 100%;
 }
-#botones{
+#id{
 
     display: flex;
     /* justify-content: space-between; */
@@ -44,6 +44,7 @@ h1::before, h1::after {
     width: 360px;
     margin-top: 50px;
     flex-direction: column;
+    gap: 30px;
 }
 
 a{
@@ -100,20 +101,5 @@ a i::before{
 a:hover i::before{
     width: 20px;
     left: 20%;
-}
-a i::after{
-    content: '';
-    position: absolute;
-    bottom: 0; 
-    left: 20%;
-    width: 10px; 
-    height: 4px;
-    background: #261668;
-    transform: translateX(-50%) skewX(325deg);
-    transition: 0.5s;
-}
-a:hover i::after{
-    width: 20px;
-    left: 80%;
 }
 /* Termina Estilo Botones */

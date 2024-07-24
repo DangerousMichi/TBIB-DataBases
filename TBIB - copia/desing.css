@@ -143,6 +143,10 @@ a:hover i::after{
     position: absolute;
     bottom: 0;
     text-align: left;
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: cover; /* Cubre todo el contenedor sin distorsionar la imagen */
+}
 }
 #img_heripuerco{
     width: 375px; 
