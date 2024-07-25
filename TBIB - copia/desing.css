@@ -147,7 +147,7 @@ a:hover i::after{
     height: auto; /* Mantiene la proporción de la imagen */
     object-fit: cover; /* Cubre todo el contenedor sin distorsionar la imagen */
 }
-}
+
 #img_heripuerco{
     width: 375px; 
 }
@@ -162,5 +162,3 @@ a:hover i::after{
     text-align: center;
     margin: 80px;
 }
-
-

@@ -10,6 +10,10 @@ router.get('/', (req, res) => {
 
   module.exports = router;
 
-router.get("/signIn", (req, res)=>{
-  res.render("sign_In");
-})
+  router.get("/signIn", (req, res)=>{
+    res.render("signin");
+  })
+
+  router.get("/logIn", (req, res)=>{
+    res.render("login");
+  })

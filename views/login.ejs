@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGN IN</title>
+    <title>logIn</title>
+    <link rel="stylesheet" href="/css/login_styles.css">
+    <!-- Incluye Font Awesome para los iconos -->
 </head>
 <body>
-    <h1>SIGN IN</h1>
-    <div id="container">
-        <img src="" alt="">
-        <input type="text">
-        <input type="text">
-        <button>SIGN  IN</button>
+    <div class="login-container">
+        <div class="Panel">
+            <div class="icon">
+                <img src="img/logSignPorfile.svg" alt="Icon">
+            </div>
+        <form class="login-form">
+            <h2>LOGIN</h2>
+            <div class=input_table>
+            <div class="input-group">
+                <i class="nameUsu_input"></i>
+                <input type="text" placeholder="name" required>
+            </div>
+
+            <div class="input-group">
+                <i class="e-mailUsu_input"></i>
+                <input type="text" placeholder="e-mail" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="usernameUsu_input"></i>
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="passwordUsu_input"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+        </div>
+            <button type="submit">SIGN IN</button>
+        </form>
+        <small>¿No tienes una cuenta? <a href="/logIn">registrate</a>.</small>
     </div>
+</div>
+           
 </body>
 </html>
