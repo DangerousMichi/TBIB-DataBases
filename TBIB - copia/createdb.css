@@ -1,0 +1,40 @@
+/* Reseteo de estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo del cuerpo del documento */
+body {
+    background: #0a2644;
+    background-image: url('Imagen/create db.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Cuadrado */
+.square {
+    width: 1000px;   
+    height: 300px; 
+    background-color: rgb(255, 255, 255); /* Blanco con 50% de transparencia */
+    opacity: 30%;
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave para darle profundidad */
+    padding: 60px; /* Espacio interno si es necesario */
+    margin: 20px; /* Espacio alrededor del rectángulo */
+    text-align: center; /* Centra el texto horizontalmente */
+    position: relative;
+}
+
+.title {
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(255, 0, 0); 
+    margin: 0;
+    font-size: 24px;
+}
