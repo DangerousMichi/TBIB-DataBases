@@ -8,27 +8,32 @@
     <!-- Incluye Font Awesome para los iconos -->
 </head>
 <body>
+   
     <div class="login-container">
         <div class="Panel">
             <div class="icon">
                 <img src="img/logSignPorfile.svg" alt="Icon">
             </div>
-        <form class="login-form">
-            <h2>SIGN IN</h2>
-            
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" required>
-            </div>
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" required>
-            </div>
-            <button type="submit">SIGN IN</button>
-        </form>
-        <small>¿No tienes una cuenta? <a href="/logIn">registrate</a>.</small>
+            <form  action="/signIn"  method="post"  id="login-form">
+                 <h2>SIGN IN</h2>
+                
+                <div class="labelDiv">
+                    <label class="label" for="username">Usuario:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
+                </div>
+                <input autofocus name="nombreUsuario" id="nombreUsuario" placeholder="Nombre de Usuario" type="text" required>
+                
+
+                <div class="labelDiv">
+                    <label class="label" for="password">Contraseña:</label> <span class="errorContraseña ocultar">Contraseña incorrecta</span>
+                </div>    
+                    <input name="password" id="password" type="password" placeholder="Ingresa tu contraseña" required>
+                
+
+                <button href="/createDb"  type="submit">SIGN IN</button>
+            </form>
+            <small>¿No tienes una cuenta? <a href="/logIn">registrate</a>.</small>
+        </div>
     </div>
-</div>
            
 </body>
 </html>

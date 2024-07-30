@@ -13,33 +13,38 @@
             <div class="icon">
                 <img src="img/logSignPorfile.svg" alt="Icon">
             </div>
-        <form class="login-form">
-            <h2>LOGIN</h2>
-            <div class=input_table>
-            <div class="input-group">
-                <i class="nameUsu_input"></i>
-                <input type="text" placeholder="name" required>
-            </div>
+            <form id="login-form">
 
-            <div class="input-group">
-                <i class="e-mailUsu_input"></i>
-                <input type="text" placeholder="e-mail" required>
-            </div>
-            
-            <div class="input-group">
-                <i class="usernameUsu_input"></i>
-                <input type="text" placeholder="Username" required>
-            </div>
-            <div class="input-group">
-                <i class="passwordUsu_input"></i>
-                <input type="password" placeholder="Password" required>
-            </div>
+                <h2>LOGIN</h2>
+
+                <div class=input_table>
+
+                    <div class="labelDiv labelUP">
+                        <label class="label" for="name">Nombre:</label> <span class="errorNombreUsuario ocultar">Nombre invalido usa mayúsculas y minusculas.</span>
+                        <input autofocus name="nombre" id="nombre" type="text" placeholder="Ingresa tu Nombre" required>
+                    </div>
+
+                    <div class="labelDiv labelUP">
+                        <label class="label" for="e-mail">Correo electrónico:</label> <span class="errorNombreUsuario ocultar">Correo invalido</span>
+                        <input name="correo" id="correo" type="text" placeholder="Ingresa tu Correo electrónico" required>
+                    </div>
+                
+                    <div class="labelDiv">
+                        <label class="label" for="username">Usuario:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
+                        <input name="nombreUsuario" id="nombreUsuario" type="text" placeholder="Ingresa un nombre de usuario" required>
+                    </div>                    
+
+                    <div class="labelDiv">
+                        <label class="label" for="username">Contraseña:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
+                        <input name="contraseña" id="contraseña" type="password" placeholder="Ingresa una contraseña" required>
+                    </div>
+
+                </div>
+                <button type="submit">SIGN IN</button>
+            </form>
+            <small>¿Yo tienes una cuenta? <a href="/signIn">Inicia sesión</a>.</small>
         </div>
-            <button type="submit">SIGN IN</button>
-        </form>
-        <small>¿No tienes una cuenta? <a href="/logIn">registrate</a>.</small>
     </div>
-</div>
            
 </body>
 </html>

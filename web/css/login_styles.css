@@ -15,6 +15,13 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
+
+h2{
+    color: #ffffff;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -25,11 +32,11 @@ body {
 
 .Panel{
     position: relative;
-    height: 370px;
+    height: 400px;
     width: 700px;
 }
 
-.login-form {
+#login-form {
     position: absolute;
     top: 40px;
     z-index: 1;
@@ -40,7 +47,7 @@ body {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 700px;
-    height: 300px;
+    height: 340px;
 }
 
 .login-form h2 {
@@ -63,31 +70,36 @@ body {
 }
 
 
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: 20px ;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.input-group i {
-    color: #ffffff;
+.labelDiv{
+    text-align: left;
+    margin-bottom: 10px;
     margin-right: 10px;
 }
 
-.input-group input {
-    
+.labelUP{
+    margin-top: 10px;
+}
+
+
+.labelDiv label{
+    color: #ffffff; 
+}
+
+
+input {
+    margin-bottom: 20px;
+    margin-right: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    color: #ffffff;
     border: none;
-    background: none;
     outline: none;
-    color: #fff;
     width: 100%;
     font-size: 16px;
 }
-.input-group input::placeholder {
+
+input::placeholder {
     color: #ffffffd5;
 }
 
@@ -123,4 +135,10 @@ a {
     display: grid;
     grid-template-columns: 1fr 1fr; 
 
+}
+
+
+.ocultar {
+    display: none;
+    visibility: hidden;
 }
