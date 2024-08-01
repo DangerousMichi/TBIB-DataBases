@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     background-image: url(Imagen/background.png);
     background-size: cover;
+    background-color: #0056b3;
 }
 
 .pricing-container {
