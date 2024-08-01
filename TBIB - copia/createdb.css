@@ -72,6 +72,9 @@ body {
     font-size: 20px;
     display: block;
     align-items: center;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #host{
     margin: 10px; 

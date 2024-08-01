@@ -1,0 +1,82 @@
+body {
+    background-image: url(Imagen/create-table-new-new.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 110vh;
+}
+
+.square {
+    width: 1050px;   
+    height: 250px; 
+    background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave para darle profundidad */
+    padding: 80px; /* Espacio interno si es necesario */
+    margin: 30px; /* Espacio alrededor del rectángulo */
+    text-align: center; /* Centra el texto horizontalmente */
+    position: relative;
+}
+
+.form-container{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.table-name{
+    color: #bdc3c7;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: calc(100% - 10px);
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.btn {
+    background-color: #1ABC9C;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #16A085;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 0;
+}
