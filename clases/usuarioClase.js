@@ -2,7 +2,13 @@ class Usuario {
     constructor(usuario) {
         this.id = usuario.idusuario;
         this.nombre = usuario.nombre;
-        this.password = usuario.celular;
+        this.correo = usuario.correo;
+        this.nombreUsuario = usuario.nombreUsuario;
+        this.password = usuario.password;
+
+        if (!usuario) {
+            throw new Error("El objeto usuario no puede ser undefined");
+        }
     }
 
     set id(id) {
@@ -19,13 +25,34 @@ class Usuario {
         }
     }
 
+    set correo(correo) {
+        var regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (regexCorreo.test(correo)) {
+            this._correo = correo;
+        } else {
+            console.error("Correo inválido");
+            this._correo = null;
+        }
+        }
+
+    set nombreUsuario(nombreUsuario) {
+        this._nombreUsuario = nombreUsuario;
+        var regexNombreUsuario = /^[a-zA-Z0-9._]{3,20}$/;
+        if (regexNombreUsuario.test(nombreUsuario)) {
+            this._nombreUsuario = nombreUsuario;
+        } else {
+            console.error("Nombre de usuario inválido");
+            this._nombreUsuario = null;
+        }
+    }
+
     set password(password) {
-        var regexPassword = /^\d{10}$/;
-        if (regexPassword.test(Password)) {
-            this._Password = Password;
+        var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+        if (regexPassword.test(password)) {
+            this._password = password;
         } else {
             console.error("contraseña inválido");
-            this._Password = null;
+            this._password = null;
         }
     }
 
@@ -37,15 +64,22 @@ class Usuario {
     get nombre() {
         return this._nombre;
     }
-
-    get password() {
-        return this._Password;
+    get correo() {
+        return this._correo;
+    }
+    get nombreUsuario() {
+        return this._nombreUsuario;
+    }
+     get password() {
+        return this._password;
     }
 
     get obtenerDatos() {
         return {
             idusuario: this.id,
             nombre: this.nombre,
+            correo: this.correo,
+            nombreUsuario: this.nombreUsuario,
             password: this.password,
         }
     }

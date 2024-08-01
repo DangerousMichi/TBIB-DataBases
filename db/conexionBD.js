@@ -1,6 +1,7 @@
 class ConectarBD {
     constructor() {
     this.conexion = null;
+
     this.mysql = require("mysql2/promise");
     }
     async conectarMySQL() {
@@ -8,7 +9,7 @@ class ConectarBD {
         this.conexion=await this.mysql.createConnection({
         host: "localhost",
         user: "root",
-        database: "TBIB-Databases",
+        database: "TBIBDatabases",
         port: "3306",
         });
         console.log("Conexion creada a MySql");

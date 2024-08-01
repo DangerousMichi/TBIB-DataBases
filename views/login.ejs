@@ -13,7 +13,7 @@
             <div class="icon">
                 <img src="img/logSignPorfile.svg" alt="Icon">
             </div>
-            <form id="login-form">
+            <form action="/agregarUsuario" method="post" id="login-form">
 
                 <h2>LOGIN</h2>
 
@@ -36,13 +36,13 @@
 
                     <div class="labelDiv">
                         <label class="label" for="username">Contraseña:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
-                        <input name="contraseña" id="contraseña" type="password" placeholder="Ingresa una contraseña" required>
+                        <input name="password" id="password" type="password" placeholder="Ingresa una contraseña" required>
                     </div>
 
                 </div>
-                <button type="submit">SIGN IN</button>
+                <button type="submit">REGISTRARSE</button>
             </form>
-            <small>¿Yo tienes una cuenta? <a href="/signIn">Inicia sesión</a>.</small>
+            <small>¿Ya tienes una cuenta? <a href="/signIn">Inicia sesión</a>.</small>
         </div>
     </div>
            

@@ -9,6 +9,8 @@ app.set('views', path.join(__dirname, 'views/'));
 app.use(express.static(path.join(__dirname, '/web')));
 app.use(express.static(path.join(__dirname, '/SRC')));
 app.use('/', rutas);
+app.use(express.json());
+
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
