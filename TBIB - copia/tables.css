@@ -16,8 +16,8 @@ body {
     background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
     border-radius: 20px; /* Ajusta el radio para redondear los bordes */
     box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave para darle profundidad */
-    padding: 80px; /* Espacio interno si es necesario */
-    margin: 30px; /* Espacio alrededor del rectángulo */
+    padding: 80px; 
+    margin: 30px; 
     text-align: center; /* Centra el texto horizontalmente */
     position: relative;
 }
