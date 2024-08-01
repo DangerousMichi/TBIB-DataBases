@@ -12,18 +12,31 @@
 <body>
     
     <div class="square">
-        <h1 class="title">Create Database!</h1>
-        <div class="container">
-        <h2 class="dbname">Database name:</h2>
-        <input type="text" name="name" id="name">  
-        <h2 class="host">Host:</h2>
-        <input type="tel" name="host" id="host"> 
-        <h2 class="port">Port:</h2>
-        <input type="tel" name="puerto" id="porrrt">
-        </div>
-        <div class="botones"></div>
-        <button class="cancel">Cancel</button>
-        <button class="accept">Accept</button>
+        <h1>Create Database!</h1>
+
+        <form action="/crearNuevaDb" method="post" class="crearDb container">
+
+            <div class="panelInput">
+                <label class="dbname">Database name:</label>
+                <input autofocus class="inputt" type="text" name="name" id="name" placeholder="new_database" required>  
+            </div>
+
+            <div class="panelInput">
+                <label class="host">Host:</label>
+                <input class="inputt" type="text" name="host" id="host" placeholder="192.168.0.222" value="127.0.0.1" required> 
+            </div>
+
+            <div class="panelInput">
+                <label class="port">Port:</label>
+                <input class="inputt" type="tel" name="puerto" id="porrrt" placeholder="3306" value="222" required> 
+            </div>
+
+            <div class="botones">
+            <a href="/letsCreate" class="cancel">Cancel</a>
+            <button type="submit" class="accept">Accept</button>
+            </div>
+
+        </form>
     </div>
     
 </body>

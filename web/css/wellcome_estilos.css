@@ -8,7 +8,7 @@
 body{
    
    background: #0a2644;
-   background-image: url('/img/wellcomeBackground.png');
+   background-image: url(/img/wellcomeBackground.png);
    height: 100vh;
    background-position: center;
    background-repeat: no-repeat;
@@ -64,7 +64,6 @@ p{
     width: 360px;
     margin-top: 50px;
     flex-direction: column;
-    
 
 }
 

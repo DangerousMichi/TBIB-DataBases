@@ -1,0 +1,132 @@
+body {
+    background-image: url(/img/crearTablas_background.png);
+    height: 100vh;
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.square {
+    width: 1040px;   
+    background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave para darle profundidad */
+    padding: 80px; /* Espacio interno si es necesario */
+    margin-top: 230px; /* Espacio alrededor del rectángulo */
+    text-align: center; /* Centra el texto horizontalmente */
+    position: relative;
+}
+
+#tableName-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
+    height: 60px;
+    width: 1060px;
+    padding: 20px;
+    margin-bottom: 55px;
+
+}
+
+#tableName-group input{
+    border-radius: 5px;
+    border: none;
+    background-color: #bdc3c7;
+    margin-bottom: 15px;
+    outline:none; 
+    font-size: 15px;
+    color: rgb(0, 34, 64);
+    text-align: center;
+    height: 12px;
+}
+
+#engine{
+    width: 300px;
+}
+
+.form-container{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.row {
+    
+    margin-bottom: 15px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.table-name{
+    color: #bdc3c7;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.l1{
+    display: flex;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+input[type="text"] {
+    width: calc(100% - 10px);
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.btn {
+    background-color: #1ABC9C;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #16A085;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+
+#plus{
+    position: absolute;
+    left: 80px;
+}
+
+a{
+    text-decoration: none;
+}

@@ -18,15 +18,21 @@ router.get('/', (req, res) => {
     res.render("login");
   })
 
+  router.get("/letsCreate", (req, res)=>{
+    res.render("letsCreate");
+  })
+
   router.get("/createDb", (req, res)=>{
     res.render("createdb");
   })
-
 
   router.get("/agregarUsuario", (req, res)=>{
     res.render("login");
   })
 
+  router.get("/crearTablas",(req,res) =>{
+    res.render("crearTablas")
+  })
   router.post("/agregarUsuario", async (req, res) => {
 
    console.log(req.body);
@@ -44,3 +50,9 @@ router.get('/', (req, res) => {
    });
 
   
+
+   router.post("/crearNuevaDb", async (req, res) => {
+
+      res.render("crearTablas")
+
+   })
