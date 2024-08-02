@@ -19,6 +19,18 @@ class DatabaseDB extends ConectarBD {
         }
     }
 
+    async mostrarDatabases(){
+
+        const db = new ConectarBD();
+        await db.conectarMySQL();
+        const sql = `SHOW DATABASES`;
+        const [rows] = await db.conexion.query(sql);
+        await db.cerrarConexion(); 
+        console.log("Databases retrieved:", rows); 
+        return rows;
+
+    }
+
     async mostrarUsuarios(){
         const sql = "SELECT * FROM usuarios";
         var usuariosBD;

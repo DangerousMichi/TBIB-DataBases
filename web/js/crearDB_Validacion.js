@@ -19,3 +19,5 @@ nombre.addEventListener("input", () => {
         nombre.classList.remove("errorInput"); // Elimina la clase errorInput
     }
 });
+
+

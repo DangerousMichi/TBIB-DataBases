@@ -5,6 +5,9 @@ const UsuarioDB = require("../db/usuarioBD");
 const DatabaseClase = require("../clases/databaseClase");
 const DatabaseDB = require("../db/databaseBD");
 
+
+
+
 router.get('/', (req, res) => {
     res.render('wellcome'); // Renderizar la vista index.ejs
   });
@@ -22,9 +25,9 @@ router.get('/', (req, res) => {
     res.render("letsCreate");
   })
 
-  router.get("/createDb", (req, res)=>{
-    res.render("createDB");
-  })
+  // router.get("/createDb", (req, res)=>{
+  //   res.render("createDB");
+  // })
 
   router.get("/agregarUsuario", (req, res)=>{
     res.render("login");
@@ -62,7 +65,7 @@ router.get('/', (req, res) => {
     if (database1.nombre!=undefined) {
         const databaseDB = new DatabaseDB();
         databaseDB.nuevaDB(database1.obtenerDatos);
-        res.render("showDBS", database1.obtenerDatos);
+        res.render("createDBS", database1.obtenerDatos);
     } 
     else {
         res.render("error");
@@ -70,5 +73,17 @@ router.get('/', (req, res) => {
     }
 
    })
-   
+
+   router.get('/createDB', async (req, res) => {
+    try {
+        const databaseDB = new DatabaseDB();
+        const result = await databaseDB.mostrarDatabases();
+        console.log("Result from mostrarDatabases:", result); // Verifica el resultado aquí
+        res.render("createDB", { databases: result, error: null });
+    } catch (error) {
+        console.error("Error al mostrar las bases de datos: ", error);
+        res.render('createDB', { databases: [], error: "Error al mostrar las bases de datos" });
+    }
+});
+
    module.exports = router;

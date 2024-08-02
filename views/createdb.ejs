@@ -26,18 +26,34 @@
                 <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
                 </div>
                 
-                <span class="errorNombre ocultar"><strong>Nombre no valido</strong></span>
+                <span class="errorNombre ocultar"><strong>Nombre invalido no agregues espacios</strong></span>
 
                 <div class="botones">
                     <button type="submit" class="accept">Accept</button>
                     <a href="/letsCreate" class="cancel">Cancel</a>
                 </div>
-            </div>
-
-            
+            </div>    
 
         </form>
     </div>
+
+    
+        <div class="contenedor">
+                <% if (databases && databases.length > 0) { %> <!-- Verifica que databases tenga elementos -->
+                    <% databases.forEach(function(db) { %>
+                        <div class="database-item">
+                            <div class="database-item_box">
+                                <span class="database-item_name">
+                                    <%= db.Database %> <!-- Asegúrate de que el nombre de la propiedad sea correcto -->
+                                </span>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    No hay bases de datos disponibles. <!-- Mensaje en caso de que no haya bases de datos -->
+                <% } %>
+        </div>
+
     <script src="/js/crearDB_Validacion.js"></script>
 </body>
 </html>

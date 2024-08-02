@@ -159,3 +159,13 @@ input{
     position: absolute;
     top: 0px;
 }
+
+
+
+
+.contenedor{
+    background-color: rgb(0, 0, 246);
+    margin: 3px;
+    color:aliceblue
+}
+
