@@ -6,7 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/createdb_styles.css">
+    <link rel="stylesheet" href="/css/createDB_styles.css">
+    <script src="https://kit.fontawesome.com/e6060c4e37.js" crossorigin="anonymous"></script>
     <title>Create DataBase</title>
 </head>
 <body>
@@ -17,27 +18,26 @@
         <form action="/crearNuevaDb" method="post" class="crearDb container">
 
             <div class="panelInput">
-                <label class="dbname">Database name:</label>
-                <input autofocus class="inputt" type="text" name="name" id="name" placeholder="new_database" required>  
+                <label class="dbname">Database name:</label> 
+                <input autofocus type="text" name="nombre" id="nombre" placeholder="new_database" required>
+                
+                <div class="marks">
+                <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
+                <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
+                </div>
+                
+                <span class="errorNombre ocultar"><strong>Nombre no valido</strong></span>
+
+                <div class="botones">
+                    <button type="submit" class="accept">Accept</button>
+                    <a href="/letsCreate" class="cancel">Cancel</a>
+                </div>
             </div>
 
-            <div class="panelInput">
-                <label class="host">Host:</label>
-                <input class="inputt" type="text" name="host" id="host" placeholder="192.168.0.222" value="127.0.0.1" required> 
-            </div>
-
-            <div class="panelInput">
-                <label class="port">Port:</label>
-                <input class="inputt" type="tel" name="puerto" id="porrrt" placeholder="3306" value="222" required> 
-            </div>
-
-            <div class="botones">
-            <a href="/letsCreate" class="cancel">Cancel</a>
-            <button type="submit" class="accept">Accept</button>
-            </div>
+            
 
         </form>
     </div>
-    
+    <script src="/js/crearDB_Validacion.js"></script>
 </body>
 </html>

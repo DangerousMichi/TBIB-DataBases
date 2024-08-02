@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const UsuarioClase = require("../clases/usuarioClase");
 const UsuarioDB = require("../db/usuarioBD");
-
+const DatabaseClase = require("../clases/databaseClase");
+const DatabaseDB = require("../db/databaseBD");
 
 router.get('/', (req, res) => {
     res.render('wellcome'); // Renderizar la vista index.ejs
   });
 
-  module.exports = router;
 
   router.get("/signIn", (req, res)=>{
     res.render("signin");
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
   })
 
   router.get("/createDb", (req, res)=>{
-    res.render("createdb");
+    res.render("createDB");
   })
 
   router.get("/agregarUsuario", (req, res)=>{
@@ -33,6 +33,11 @@ router.get('/', (req, res) => {
   router.get("/crearTablas",(req,res) =>{
     res.render("crearTablas")
   })
+
+  router.get("/mostrarDB" , (req,res) =>{
+    res.render("showDBS")
+  })
+
   router.post("/agregarUsuario", async (req, res) => {
 
    console.log(req.body);
@@ -49,10 +54,21 @@ router.get('/', (req, res) => {
     }
    });
 
-  
-
    router.post("/crearNuevaDb", async (req, res) => {
 
-      res.render("crearTablas")
+    console.log(req.body);
+    const database1 = new DatabaseClase(req.body);
+
+    if (database1.nombre!=undefined) {
+        const databaseDB = new DatabaseDB();
+        databaseDB.nuevaDB(database1.obtenerDatos);
+        res.render("showDBS", database1.obtenerDatos);
+    } 
+    else {
+        res.render("error");
+        console.error("Error al insertar datos en MySql: ", error);
+    }
 
    })
+   
+   module.exports = router;

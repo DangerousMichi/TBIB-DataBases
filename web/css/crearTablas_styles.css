@@ -127,6 +127,10 @@ h2 {
     left: 80px;
 }
 
+#less{
+    position: absolute;
+    left: 150px;
+}
 a{
     text-decoration: none;
 }

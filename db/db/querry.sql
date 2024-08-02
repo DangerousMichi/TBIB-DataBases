@@ -1,9 +1,9 @@
 create database TBIBDatabases;
-use TBIBDatabases;
+use TBIBDusuariosatabases;
 
 # USUARIO CLASE  ##############################################################################
 create table USUARIOS(
-id_usu int not null primary key,
+id_usu int not null primary key auto_increment,
 nom_usu varchar(40) not null,
 corr_usu varchar(30) not null,
 usu_usu varchar(20) not null, 
@@ -33,12 +33,12 @@ create procedure transacciones_usu(
  delimiter ;
 
 
+
 # BDS CLASE #############################################################################
 
 create table BDS (
 id_bd int not null primary key,
 nom_bd varchar(20) not null,
-
 id_usu1 int not null,
 
 foreign key (id_usu1) references USUARIOS(id_usu) on update cascade on delete cascade

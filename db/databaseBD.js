@@ -1,19 +1,20 @@
 const ConectarBD = require("./conexionBD");
 
-class UsuarioDB extends ConectarBD {
+class DatabaseDB extends ConectarBD {
     constructor() {
         super();
     }
 
-    async nuevoUsuario(usuario) {
-        const sql = "INSERT INTO usuarios VALUES( null, '"+usuario.nombre+"', '"+usuario.correo+"' , '"+usuario.nombreUsuario+"', '"+usuario.password+"');";
+    async nuevaDB(database) {
+
+        const sql = `CREATE DATABASE \`${database.nombre}\`;`;
         try {
             await this.conectarMySQL();
             await this.conexion.execute(sql);
             await this.cerrarConexion();
-            console.log("Dato insertado a MySql");
+            console.log("Base de datos creada con exito en TBIB-Sql");
         } catch (error) {
-            console.error("Error al insertar datos en MySql" +error);
+            console.error("Error al crear Base de datos en TBIB-Sql" +error);
             console.error(sql);
         }
     }
@@ -77,4 +78,4 @@ class UsuarioDB extends ConectarBD {
         }
     }
 }
-module.exports = UsuarioDB;
+module.exports = DatabaseDB;

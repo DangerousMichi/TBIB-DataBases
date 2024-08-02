@@ -18,69 +18,38 @@
                     <input type="text" id="engine" name="engine" placeholder="Engine" value="InnoDB" required> 
                 </div>
 
-                <div class="row">
+                <div id="columns-container">
+                    <!-- Aquí se agregarán las filas dinámicamente -->
+                    <div class="row">
                         <label for="column-name">Column Name</label>
-                        <input type="text" id="column-name" name="column-name" placeholder="id_usu" required>
+                        <input type="text" class="column-name" name="column-name[]" placeholder="id_usu" required>
 
                         <label for="datatype">Datatype</label>
-                        <input type="text" id="datatype" name="datatype" placeholder="INT" required> 
+                        <input type="text" class="datatype" name="datatype[]" placeholder="INT" required> 
                         
                         <label>Constraints:</label>
                         <label for="pk">PK</label>
-                        <input type="checkbox" id="pk" name="pk">
+                        <input type="checkbox" class="pk" name="pk[]">
 
                         <label for="nn">NN</label>
-                        <input type="checkbox" id="nn" name="nn">
+                        <input type="checkbox" class="nn" name="nn[]">
 
                         <label for="fk">FK</label>
-                        <input type="checkbox" id="fk" name="fk">
+                        <input type="checkbox" class="fk" name="fk[]">
+                    </div>
                 </div>
 
-                <div class="row">
-                    <label for="column-name">Column Name</label>
-                    <input type="text" id="column-name" name="column-name">
+                <a id="plus" class="btn"><span><strong>+</strong></span></a>
+                <a id="less" class="btn"><span><strong>-</strong></span></a>
 
-                    <label for="datatype">Datatype</label>
-                    <input type="text" id="datatype" name="datatype">
-                    
-                    <label>Constraints:</label>
-                    <label for="pk">PK</label>
-                    <input type="checkbox" id="pk" name="pk">
-
-                    <label for="nn">NN</label>
-                    <input type="checkbox" id="nn" name="nn">
-
-                    <label for="fk">FK</label>
-                    <input type="checkbox" id="fk" name="fk">
-            </div>
-
-            <div class="row">
-                <label for="column-name">Column Name</label>
-                <input type="text" id="column-name" name="column-name">
-
-                <label for="datatype">Datatype</label>
-                <input type="text" id="datatype" name="datatype">
-                
-                <label>Constraints:</label>
-                <label for="pk">PK</label>
-                <input type="checkbox" id="pk" name="pk">
-
-                <label for="nn">NN</label>
-                <input type="checkbox" id="nn" name="nn">
-
-                <label for="fk">FK</label>
-                <input type="checkbox" id="fk" name="fk">
-        </div>
-
-                <a  id="plus" class="btn"><span><strong>+</strong></span></a>
                 
                 <div class="buttons">
-                    <a   href="/letsCreate" class="btn"><span>Revert</span></a>
+                    <a href="/letsCreate" class="btn"><span>Revert</span></a>
                     <button type="submit" class="btn">Apply</button>
                 </div>
             </form>
         </div>
     </div>
-</div>
+    <script src="/js/crearTablas.js"></script>
 </body>
 </html>

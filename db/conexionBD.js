@@ -8,9 +8,9 @@ class ConectarBD {
     try {
         this.conexion=await this.mysql.createConnection({
         host: "localhost",
+        database: "TBIBDatabases",
         user: "root",
         password: "",
-        database: "TBIBDatabases",
         port: "3306",
         });
         console.log("Conexion creada a MySql");

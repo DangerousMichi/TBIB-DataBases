@@ -1,14 +1,15 @@
 class Usuario {
     constructor(usuario) {
+
+         if (!usuario) {
+            throw new Error("El objeto usuario no puede ser undefined");
+         }
         this.id = usuario.idusuario;
         this.nombre = usuario.nombre;
         this.correo = usuario.correo;
         this.nombreUsuario = usuario.nombreUsuario;
         this.password = usuario.password;
 
-        if (!usuario) {
-            throw new Error("El objeto usuario no puede ser undefined");
-        }
     }
 
     set id(id) {
@@ -80,7 +81,7 @@ class Usuario {
             nombre: this.nombre,
             correo: this.correo,
             nombreUsuario: this.nombreUsuario,
-            password: this.password,
+            password: this.password
         }
     }
 }
