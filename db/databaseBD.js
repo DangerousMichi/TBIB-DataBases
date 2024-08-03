@@ -20,13 +20,13 @@ class DatabaseDB extends ConectarBD {
     }
 
     async mostrarDatabases(){
-
-        const MyDb = new ConectarBD();
-        await MyDb.conectarMySQL();
+        
         const sql = `SHOW DATABASES`;
-        const [rows] = await MyDb.conexion.query(sql);
-        await MyDb.cerrarConexion(); 
-        console.log("Databases retrieved:", rows); 
+        
+        await this.conectarMySQL();
+        const [rows] = await this.conexion.execute(sql);
+        await this.cerrarConexion(); 
+        console.log("Databases desplegadas:", rows); 
         return rows;
 
     }

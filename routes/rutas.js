@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
     if (database1.nombre!=undefined) {
         const databaseDB = new DatabaseDB();
         databaseDB.nuevaDB(database1.obtenerDatos);
-        res.render("createDBS", database1.obtenerDatos);
+        res.redirect("/crearDB", database1.obtenerDatos);
     } 
     else {
         res.render("error");
@@ -94,7 +94,7 @@ router.get('/', (req, res) => {
     if (database1.nombre!=undefined) {
         const databaseDB = new DatabaseDB();
         databaseDB.borrarDB(database1.obtenerDatos);
-        res.render("crearDB");
+        res.redirect("/crearDB");
     } 
     else {
         res.render("error");

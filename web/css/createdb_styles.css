@@ -68,6 +68,7 @@ input{
     text-align: center;
     height: 19px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .btn{
@@ -83,21 +84,29 @@ input{
 }
 
 
-.cancel, .accept{
+.accept{
     padding: 10px 20px; 
     font-size: 15px;
 }
 
-.TabAction{
-    padding: 8px 15px; 
-    font-size: 11px;
+.accept:hover{
+    background-color: aqua;
 }
 
-.cancel:hover, .accept:hover, .btn:hover{
+.TabAction{
+    padding: 10px 15px; 
+    font-size: 13px;
+}
+
+.btn:hover{
     background-color: #235985; /* Color de fondo */
     color: rgb(255, 255, 255);
 }
 
+#eliminar:hover{
+    background-color: red;
+    color: aliceblue;
+}
 
 #name{
     width: 800px;
@@ -172,7 +181,7 @@ input{
 
 
 .contenedor {
-    color:rgb(31, 42, 87);
+    color:rgb(12, 25, 63);
     display: grid;
     grid-template-columns: repeat(3, 2fr); /* 3 columnas de igual tamaño */
     gap: 20px; /* Espacio entre celdas */
@@ -180,25 +189,27 @@ input{
     height: 300px;
     overflow-y: auto;
     padding: 50px;
-    border: #bdc3c7;
+    border: #214f6e;
     font-size: 19px;
 }
 
 .database-item_box {
     
-    height: 100px;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(240, 248, 255, 0.584);
+    background-color: rgba(206, 236, 255, 0.438);
     border-radius: 10px; /* Bordes de las celdas */
     padding: 20px; /* Espaciado interno */
+    border: 1px rgb(22, 44, 103);
 }
 
 .database-item_action{
     display: flex;
     flex-direction: row;
+    margin-top: 30px ;
     margin: 10px;
     gap: 11px;
 }
@@ -210,3 +221,9 @@ input{
 }
 
 
+
+
+.database-item_name{
+    margin-bottom: 10px;
+
+}

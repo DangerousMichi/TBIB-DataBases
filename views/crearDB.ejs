@@ -24,7 +24,7 @@
 
                 <div class="panelInp"> 
                     <input autofocus type="text" name="nombre" id="nombre" placeholder="new_database" required>
-                    <span class="errorNombre ocultar"><strong>Nombre invalido no agregues espacios</strong></span>
+                    <span class="errorNombre ocultar"><strong>Nombre invalido, debe ser mayor a 3 caracteres y sin espacios</strong></span>
                 </div>
                     <div class="marks">
                         <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
@@ -54,11 +54,11 @@
                         <div class="database-item_action">
                             <form href="" method="POST">
                                 <input type="hidden" name="nombreBase" value="<%= db.Database %>">
-                                <button type="submit" class="btn TabAction">editar</button>
+                                <button type="submit" id="editar" class="btn TabAction">editar</button>
                             </form>
                             <form action="/borrarDB" method="POST">
                                 <input type="hidden" name="nombre" value="<%= db.Database %>">
-                                <button type="submit" class="btn TabAction">borrar</button>
+                                <button type="submit" id="eliminar" class="btn TabAction">borrar</button>
                             </form> 
                         </div>
 
