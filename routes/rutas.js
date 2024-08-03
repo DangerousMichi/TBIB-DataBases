@@ -74,16 +74,33 @@ router.get('/', (req, res) => {
 
    })
 
-   router.get('/createDB', async (req, res) => {
+   router.get('/crearDB', async (req, res) => {
     try {
         const databaseDB = new DatabaseDB();
         const result = await databaseDB.mostrarDatabases();
         console.log("Result from mostrarDatabases:", result); // Verifica el resultado aquí
-        res.render("createDB", { databases: result, error: null });
+        res.render("crearDB", { databases: result, error: null });
     } catch (error) {
         console.error("Error al mostrar las bases de datos: ", error);
-        res.render('createDB', { databases: [], error: "Error al mostrar las bases de datos" });
+        res.render('crearDB', { databases: [], error: "Error al mostrar las bases de datos" });
     }
 });
+
+  router.post("/borrarDB", async (req, res) => {
+
+    console.log(req.body);
+    const database1 = new DatabaseClase(req.body);
+
+    if (database1.nombre!=undefined) {
+        const databaseDB = new DatabaseDB();
+        databaseDB.borrarDB(database1.obtenerDatos);
+        res.render("crearDB");
+    } 
+    else {
+        res.render("error");
+        console.error("Error al insertar datos en MySql: ", error);
+    }
+
+   })
 
    module.exports = router;

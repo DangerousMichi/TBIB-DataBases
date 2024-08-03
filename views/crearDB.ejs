@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/createDB_styles.css">
+    <script src="https://kit.fontawesome.com/e6060c4e37.js" crossorigin="anonymous"></script>
+    <title>Create DataBase</title>
+</head>
+<body>
+    <h1>Create Database!</h1>
+
+    <div class="square">
+        
+
+        <form action="/crearNuevaDb" method="post" class="crearDb container">
+
+            <div class="panelInput">
+                
+                <label class="dbname">Database name:</label> 
+
+                <div class="panelInp"> 
+                    <input autofocus type="text" name="nombre" id="nombre" placeholder="new_database" required>
+                    <span class="errorNombre ocultar"><strong>Nombre invalido no agregues espacios</strong></span>
+                </div>
+                    <div class="marks">
+                        <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
+                        <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
+                    </div>
+                    
+                <div class="botones">
+                    <button type="submit" class="accept btn">Crear</button>
+                </div>      
+            </div>
+
+        </form>
+    </div>
+
+    
+    <div class="contenedor">
+        <% if (databases && databases.length > 0) { %> <!-- Verifica que databases tenga elementos -->
+            
+            <% databases.forEach(function(db) { %>
+                <div class="database-item">
+                    <div class="database-item_box">
+                        
+                        <span class="database-item_name">
+                            <strong><%= db.Database %></strong> <!-- Asegúrate de que el nombre de la propiedad sea correcto -->
+                        </span>
+
+                        <div class="database-item_action">
+                            <form href="" method="POST">
+                                <input type="hidden" name="nombreBase" value="<%= db.Database %>">
+                                <button type="submit" class="btn TabAction">editar</button>
+                            </form>
+                            <form action="/borrarDB" method="POST">
+                                <input type="hidden" name="nombre" value="<%= db.Database %>">
+                                <button type="submit" class="btn TabAction">borrar</button>
+                            </form> 
+                        </div>
+
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            No hay bases de datos disponibles. <!-- Mensaje en caso de que no haya bases de datos -->
+        <% } %>
+    </div>
+    <script src="/js/crearDB_Validacion.js"></script>
+</body>
+</html>

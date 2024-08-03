@@ -21,71 +21,26 @@ class DatabaseDB extends ConectarBD {
 
     async mostrarDatabases(){
 
-        const db = new ConectarBD();
-        await db.conectarMySQL();
+        const MyDb = new ConectarBD();
+        await MyDb.conectarMySQL();
         const sql = `SHOW DATABASES`;
-        const [rows] = await db.conexion.query(sql);
-        await db.cerrarConexion(); 
+        const [rows] = await MyDb.conexion.query(sql);
+        await MyDb.cerrarConexion(); 
         console.log("Databases retrieved:", rows); 
         return rows;
 
     }
 
-    async mostrarUsuarios(){
-        const sql = "SELECT * FROM usuarios";
-        var usuariosBD;
-        try{
-            await this.conectarMySQL();
-            [usuariosBD]=await this.conexion.execute(sql);
-            await this.cerrarConexion();
-            console.log("Usuarios Recuperados");
-            // console.log(usuariosBD);
-            return usuariosBD;
-        } catch (error){
-            console.error("Error al recuperar los datos de usuarios "+error);
-            console.error(sql);
-        }
-    }
-    async buscarUsuarioPorID(idUsuario){
-        const sql="SELECT * FROM usuarios WHERE idusuario="+ idUsuario;
-        try {
-            await this.conectarMySQL();
-            const usuario=await this.conexion.execute(sql);
-            await this.cerrarConexion();
-            console.log("Usuario registrado correctamente");
-            return usuario;
-        } catch (error){
-            console.error("Error al recuperar el usuario "+ error);
-            console.error(sql);
-        }
-    }
+    async borrarDB(database) {
 
-    async editarUsuario(usuario){
-        const sql2=`
-        UPDATE usuarios SET
-        nombre="${usuario.nombre}",
-        celular="${usuario.celular}",
-        correo="${usuario.correo}"
-        WHERE idusuario="${usuario.idusuario}"
-        `;
-        try {
-            await this.conectarMySQL();
-            await this.conexion.execute(sql2);
-            await this.cerrarConexion();
-        } catch (error) {
-            console.error("Error al editar usuario"+error);
-            console.error(sql12);
-        }
-    }
-
-    async borrarUsuario(idusuario){
-        const sql="DELETE FROM usuarios WHERE idusuario="+idusuario;
+        const sql = `DROP DATABASE \`${database.nombre}\`;`;
         try {
             await this.conectarMySQL();
             await this.conexion.execute(sql);
             await this.cerrarConexion();
+            console.log("Base de datos eliminada con exito de TBIB-Sql");
         } catch (error) {
-            console.error("Error al borrar el usuario"+error);
+            console.error("Error al eliminar la Base de datos en TBIB-Sql" +error);
             console.error(sql);
         }
     }
