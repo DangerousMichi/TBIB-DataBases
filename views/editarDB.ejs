@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tablas</title> <!-- Cambia el título para que sea coherente -->
+    <link rel="stylesheet" href="/css/editarDB_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/crearTablas_styles.css">
+</head>
+<body>
+    <h1>"<%= database1.nombre %>" DB</h1>
+
+        <% if (message) { %>
+            <div class="alert"><%= message %></div>
+        <% } %>
+
+    <div class="square">
+        <div class="form-container">
+            <form action="/crearTabla" method="POST">
+                <div id="tableName-group">
+                    <input type="hidden" name="DBNombre" value="<%= database1.nombre %>">
+                    <label for="table-name">Table Name:</label>
+                    <input type="text" id="table-name" name="tableName" placeholder="new_table" required>
+                    <span class="errorNombre ocultar"><strong>Nombre invalido, debe ser mayor a 3 caracteres y sin espacios</strong></span>
+                </div>
+                    <div class="marks">
+                        <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
+                        <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
+                    </div>
+
+                    <label for="engine">Engine:</label>
+                    <input type="text" id="engine" name="engine" placeholder="Engine" value="InnoDB" required> 
+                </div>
+
+                <div id="columns-container">
+                    <!-- Aquí se agregarán las filas dinámicamente -->
+                    <div class="row">
+                        <label for="column-name">Column Name</label>
+                        <input type="text" class="column-name" name="columnName[0]" placeholder="id_usu" required>
+
+                        <label for="datatype">Datatype</label>
+                        <input type="text" class="datatype" name="datatype[0]" placeholder="INT" required> 
+                        
+                        <label>Constraints:</label>
+                        <label for="pk">PK</label>
+                        <input type="checkbox" class="pk" name="pk[0]">
+
+                        <label for="nn">NN</label>
+                        <input type="checkbox" class="nn" name="nn[0]">
+
+                    </div>
+                </div>
+
+                <a id="plus" class="btn"><span><strong>+</strong></span></a>
+                <a id="less" class="btn"><span><strong>-</strong></span></a>
+
+                
+                <div class="buttons">
+                    <a href="/limpiarCampos" class="btn"><span>Revert</span></a>
+                    <button type="submit" class="btn">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/crearTablas.js"></script>
+    <script src="/js/crearTablasValidacion.js"></script>
+
+
+    <div class="pricing-container">
+        <h1>Tablas de tu base de datos "<%= database1.nombre %>"</h1> <!-- Asegúrate de pasar 'database1' correctamente -->
+        <div class="contenedor">
+            <% if (tables && tables.length > 0) { %>
+                <% tables.forEach(function(tab) { %>
+                    <div class="tabla-BD">
+                        <span class="database-item_name">
+                            <strong><%= tab.nombre %></strong> 
+                        </span>
+                        <div class="database-item_action">
+
+                            <form action="/abrirTab" method="POST">
+                                <input type="hidden" name="DBNombre" value="<%= database1.nombre %>"> 
+                                <input type="hidden" name="nombre" value="<%= tab.nombre %>">
+                                <button type="submit" id="editar" class="btnB TabAction">abrir</button>
+                            </form>
+                        
+                            <form action="/borrarTab" method="POST">
+                                <input type="hidden" name="DBNombre" value="<%= database1.nombre %>"> 
+                                <input type="hidden" name="nombre" value="<%= tab.nombre %>">
+                                <button type="submit" id="eliminar" class="btnB TabAction">borrar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No hay Tablas disponibles.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

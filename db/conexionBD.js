@@ -4,6 +4,7 @@ class ConectarBD {
 
     this.mysql = require("mysql2/promise");
     }
+    
     async conectarMySQL() {
     try {
         this.conexion=await this.mysql.createConnection({

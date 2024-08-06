@@ -112,14 +112,6 @@ input{
     width: 800px;
 }
 
-#host{
-    width: 80px;
-}
-
-#port{
-    width: 80px;
-}
-
 
 .errorInput{
     background-color: rgb(235, 196, 196) ;
@@ -204,6 +196,16 @@ input{
     border-radius: 10px; /* Bordes de las celdas */
     padding: 20px; /* Espaciado interno */
     border: 1px rgb(22, 44, 103);
+    transition: transform 0.3s;
+
+}
+
+.database-item_box:hover{
+    transform: scale(1.09);
+    cursor: pointer;
+    background-color: #13297365;
+    color: azure;
+    border: solid 1.5px rgb(49, 73, 227);
 }
 
 .database-item_action{

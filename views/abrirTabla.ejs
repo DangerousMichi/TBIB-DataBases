@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de la Tabla <%= tableName ? tableName : '' %></title>
+    <link rel="stylesheet" href="/css/abrirTabla_styles.css">
+</head>
+<body>
+    <h1>Datos de la Tabla "<%= tableName ? tableName : '' %>"</h1>
+
+    <% if (message) { %>
+        <div class="alert"><%= message %></div>
+    <% } %>
+
+    <% if (columnas && columnas.length > 0 && datos && datos.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <% columnas.forEach(columna => { %>
+                        <th><%= columna.name %></th>
+                    <% }) %>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% datos.forEach((fila, index) => { %>
+                <tr id="fila-<%= index %>">
+                    <% columnas.forEach(columna => { %>
+                        <td>
+                            <input type="hidden" id="idRegistro-<%= index %>" value="<%= fila.id %>"> <!-- Input oculto con el ID del registro -->
+                            <input type="text" name="<%= columna.name %>" id="fila-<%= index %>-<%= columna.name %>" value="<%= fila[columna.name] %>" disabled>
+                        </td>
+                    <% }) %>
+                    <td>
+                        <!-- Botón de Editar -->
+                        <button id="boton-editar-<%= index %>" onclick="activarEdicion('<%= index %>')">Editar</button>
+
+                        <!-- Botón de Guardar -->
+                        <form action="/actualizarRegistro" method="post" style="display:inline;">
+                            <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
+                            <input type="hidden" name="nombre" value="<%= tableName %>">
+                            <input type="hidden" name="id" value="<%= fila.id %>"> <!-- Input oculto para el ID del registro -->
+                            <% columnas.forEach(columna => { %>
+                                <input type="hidden" name="<%= columna.name %>" value="<%= fila[columna.name] %>">
+                            <% }) %>
+                            <button type="submit" id="boton-guardar-<%= index %>" style="display:none;">Guardar</button>
+                        </form>
+
+                        <!-- Botón de Eliminar -->
+                        <form action="/eliminarRegistro" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="<%= fila.id %>"> <!-- Suponiendo que 'id' es el identificador del registro -->
+                            <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
+                            <input type="hidden" name="nombre" value="<%= tableName %>">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+                <tr id="formulario-insercion" style="display: none;">
+                    <form action="/insertarRegistros" method="post">
+                        <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
+                        <input type="hidden" name="nombre" value="<%= tableName %>">
+                        <% columnas.forEach(columna => { %>
+                            <td>
+                                <input type="text" name="<%= columna.name %>">
+                            </td>
+                        <% }) %>
+                        <td>
+                            <button type="submit">Guardar</button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    <% } else { %>
+        <div class="alert">No se encontraron datos para mostrar.</div>
+    <% } %>
+
+    <button onclick="mostrarFormulario()">Insertar registros</button>
+
+    <script>
+        function mostrarFormulario() {
+            document.getElementById("formulario-insercion").style.display = "table-row";
+        }
+
+        function activarEdicion(index) {
+            // Habilitar inputs para edición
+            document.querySelectorAll(`#fila-${index} input`).forEach(input => input.disabled = false);
+
+            // Cambiar la visibilidad de los botones
+            document.getElementById(`boton-editar-${index}`).style.display = 'none';
+            document.getElementById(`boton-guardar-${index}`).style.display = 'inline';
+        }
+    </script>
+</body>
+</html>
