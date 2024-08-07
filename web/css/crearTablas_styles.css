@@ -23,12 +23,13 @@
 
 }
 
-#tableName-group input{
+input{
     border-radius: 5px;
     border: none;
+    outline:none; 
     background-color: #bdc3c7;
     margin-bottom: 15px;
-    outline:none; 
+    border: solid 2px rgba(255, 255, 255, 0);
     font-size: 15px;
     color: rgb(0, 34, 64);
     text-align: center;
@@ -68,13 +69,6 @@ label {
     white-space: nowrap;
 }
 
-input[type="text"] {
-    width: 211px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-}
 
 input[type="checkbox"] {
     margin-right: 5px;
@@ -113,7 +107,6 @@ a{
     text-decoration: none;
 }
 
-
 .errorInput{
     background-color: rgb(235, 196, 196) ;
     border: solid 2px red;
@@ -124,7 +117,7 @@ a{
     border: solid 2px rgb(74, 201, 11);
 }
 
-.errorCelular,.errorCorreo,.errorNombre{
+.errorNombre{
     font-size: small;
     color: red;
     
@@ -168,4 +161,19 @@ a{
 .fa-solid{
     position: absolute;
     top: 0px;
+}
+
+
+.panelInp{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 50px;
+}
+
+#tableName-group{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: 50px;
 }

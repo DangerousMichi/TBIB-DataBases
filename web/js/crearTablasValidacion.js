@@ -1,11 +1,11 @@
-var regexNombre = /^[a-zA-Z0-9._]{3,20}$/;
-var nombre = document.getElementById("tableName");
+var regexNombre = /^[a-zA-Z0-9._]{1,}$/;
+var nombre = document.getElementById("table-name");
 var mensajeNombre = document.getElementsByClassName("errorNombre");
 var xmarkErrorNombre = document.getElementsByClassName("xmarkErrorNombre");
 var checkMarkNombre = document.getElementsByClassName("checkMarkNombre");
 
 nombre.addEventListener("input", () => {
-    if (!regexNombre.test(tableName.value)) {
+    if (!regexNombre.test(nombre.value)) {
         mensajeNombre[0].classList.remove("ocultar");
         xmarkErrorNombre[0].classList.remove("ocultar");
         checkMarkNombre[0].classList.add("ocultar");
@@ -19,5 +19,4 @@ nombre.addEventListener("input", () => {
         nombre.classList.remove("errorInput"); // Elimina la clase errorInput
     }
 });
-
 

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/crearTablas_styles.css">
+    <script src="https://kit.fontawesome.com/e6060c4e37.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <h1>"<%= database1.nombre %>" DB</h1>
@@ -20,12 +21,14 @@
     <div class="square">
         <div class="form-container">
             <form action="/crearTabla" method="POST">
-                <div id="tableName-group">
-                    <input type="hidden" name="DBNombre" value="<%= database1.nombre %>">
+                <div id="tableName-group" >
+                    <input autofocus type="hidden" name="DBNombre" value="<%- database1.nombre %>" class="">
                     <label for="table-name">Table Name:</label>
-                    <input type="text" id="table-name" name="tableName" placeholder="new_table" required>
-                    <span class="errorNombre ocultar"><strong>Nombre invalido, debe ser mayor a 3 caracteres y sin espacios</strong></span>
-                </div>
+                    <div class="panelInp">
+                        <input type="text" id="table-name" name="tableName" placeholder="new_table" required>
+                        <span class="errorNombre ocultar"><strong>Nombre invalido, coloca guiones bajos en ves de espacios</strong></span>      
+                    </div>
+                    
                     <div class="marks">
                         <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
                         <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
@@ -39,17 +42,17 @@
                     <!-- Aquí se agregarán las filas dinámicamente -->
                     <div class="row">
                         <label for="column-name">Column Name</label>
-                        <input type="text" class="column-name" name="columnName[0]" placeholder="id_usu" required>
+                        <input type="text" class="column-name" name="columnName" placeholder="id_..." required>
 
                         <label for="datatype">Datatype</label>
-                        <input type="text" class="datatype" name="datatype[0]" placeholder="INT" required> 
+                        <input type="text" class="datatype" name="datatype" placeholder="INT, Varchar, Double..." required> 
                         
                         <label>Constraints:</label>
                         <label for="pk">PK</label>
-                        <input type="checkbox" class="pk" name="pk[0]">
+                        <input type="checkbox" class="pk" name="pk">
 
                         <label for="nn">NN</label>
-                        <input type="checkbox" class="nn" name="nn[0]">
+                        <input type="checkbox" class="nn" name="nn">
 
                     </div>
                 </div>
@@ -59,16 +62,16 @@
 
                 
                 <div class="buttons">
-                    <a href="/limpiarCampos" class="btn"><span>Revert</span></a>
                     <button type="submit" class="btn">Apply</button>
                 </div>
-            </form>
+           
         </div>
     </div>
     <script src="/js/crearTablas.js"></script>
     <script src="/js/crearTablasValidacion.js"></script>
-
-
+</form>
+</div>
+    
     <div class="pricing-container">
         <h1>Tablas de tu base de datos "<%= database1.nombre %>"</h1> <!-- Asegúrate de pasar 'database1' correctamente -->
         <div class="contenedor">

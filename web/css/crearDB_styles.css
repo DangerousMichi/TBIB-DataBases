@@ -123,7 +123,7 @@ input{
     border: solid 2px rgb(74, 201, 11);
 }
 
-.errorCelular,.errorCorreo,.errorNombre{
+.errorNombre{
     font-size: small;
     color: red;
     
@@ -135,14 +135,14 @@ input{
     flex-direction: row;
 }
 
-.xmarkErrorCorreo,.xmarkErrorNombre,.xmarkErrorCelular{
+.xmarkErrorNombre{
     color: rgb(255, 255, 255);
     background-color: red;
     padding: 4px;
     border-radius: 10px;
 }
 
-.checkMarkNombre,.checkMarkCorreo,.checkMarkCelular{
+.checkMarkNombre{
     color: rgb(255, 255, 255);
     background-color: green;
     padding: 4px;

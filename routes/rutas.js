@@ -144,31 +144,42 @@ router.post('/editarDB', async (req, res) => {
     }
 });
 
-  router.post('/crearTabla', async (req, res) => {
-    const databaseNombre = req.body.DBNombre;
-    const tableName = req.body.tableName;
-    const { columnName, datatype, pk, nn } = req.body;
+    router.post('/crearTabla', async (req, res) => {
+      const { DBNombre, tableName } = req.body;
+    const columnNames = req.body.columnName || [];
+    const dataTypes = req.body.datatype || [];
+    const pks = req.body.pk || [];
+    const nns = req.body.nn || [];
 
-    const database1 = new DatabaseClase({nombre: databaseNombre});
-
-    // Mapea las columnas en el formato adecuado
-    const columns = columnName.map((name, index) => ({
-        name: name,
-        datatype: datatype[index],
-        pk: pk[index] ? true : false,
-        nn: nn[index] ? true : false,
-    }));
-
-    try {
-        const databaseDB = new DatabaseDB();
-        const result = await databaseDB.crearTabla(database1, tableName, columns);
-        // Redirigir a la vista de editarDB con un mensaje de éxito o error
-        res.redirect(`/editarDB?nombre=${encodeURIComponent(databaseNombre)}&message=${encodeURIComponent(result.message)}`);
-      } catch (error) {
-        console.error("Error en la creación de la tabla:", error);
-        res.redirect(`/editarDB?nombre=${encodeURIComponent(databaseNombre)}&message=${encodeURIComponent("Error al crear la tabla.")}`);
+    if (!DBNombre || !tableName) {
+        return res.status(400).send('Faltan parámetros.');
     }
-});
+
+    console.log("Datos recuperados por /crearTabla: ", { DBNombre, tableName, columnNames, dataTypes, pks , nns} );
+
+    const columns = columnNames.map((name, index) => {
+        return {
+            name,
+            datatype: dataTypes[index],
+            pk: pks[index] === 'on',
+            nn: nns[index] === 'on'
+        };
+    });
+
+    const database = { nombre: DBNombre };
+
+    const databaseDB = new DatabaseDB();
+    const result = await databaseDB.crearTabla(database, tableName, columns);
+
+
+      if (result.success) {
+        res.redirect(`/editarDB?nombre=${encodeURIComponent(DBNombre)}&message=${encodeURIComponent("Tabla creada exitosamente.")}`);
+      } else {
+          res.status(500).send(result.message);
+      }
+    });
+
+
 
 router.post('/borrarTab', async (req, res) => {
   const tableName = req.body.nombre; // Obtienes el nombre de la tabla a borrar
@@ -245,29 +256,29 @@ router.post('/abrirTab', async (req, res) => {
   }
 });
 
-router.get('/abrirTabla', (req, res) => {
-  const dbNombre = req.query.DBNombre;
-  const tableName = req.query.nombre;
+// router.get('/abrirTabla', (req, res) => {
+//   const dbNombre = req.query.DBNombre;
+//   const tableName = req.query.nombre;
 
-  // Conectar a la base de datos y obtener los datos
-  db.connect(dbNombre, (err, connection) => {
-      if (err) throw err;
+//   // Conectar a la base de datos y obtener los datos
+//   db.connect(dbNombre, (err, connection) => {
+//       if (err) throw err;
       
-      const query = `SELECT * FROM ${tableName}`;
-      connection.query(query, (err, results) => {
-          if (err) throw err;
+//       const query = `SELECT * FROM ${tableName}`;
+//       connection.query(query, (err, results) => {
+//           if (err) throw err;
 
-          const columnas = Object.keys(results[0]).map(col => ({ name: col }));
-          res.render('abrirTabla', {
-              database: { nombre: dbNombre },
-              tableName: tableName,
-              columnas: columnas,
-              datos: results
-          });
-          connection.end();
-      });
-  });
-});
+//           const columnas = Object.keys(results[0]).map(col => ({ name: col }));
+//           res.render('abrirTabla', {
+//               database: { nombre: dbNombre },
+//               tableName: tableName,
+//               columnas: columnas,
+//               datos: results
+//           });
+//           connection.end();
+//       });
+//   });
+// });
 
 router.post('/insertarRegistros', async (req, res) => {
   const { DBNombre, nombre, ...data } = req.body;
@@ -284,16 +295,17 @@ router.post('/insertarRegistros', async (req, res) => {
 });
 
 router.post('/actualizarRegistro', async (req, res) => {
-  const { DBNombre, nombre, id, ...campos } = req.body;
+  const { DBNombre, nombre, IdColumName , id, ...campos } = req.body;
   const databaseName = DBNombre; 
   const tableName = nombre;
 
   console.log(`id del Registro recuperado: ${id}`);
+  console.log(`Nombre de la columna id recuperado: ${IdColumName}`);
   console.log(`Datos recuperados del req.body en /actualizarRegistro: DBNombre: ${databaseName}, tableName: ${tableName}, idRegistro: ${id}, campos: ${JSON.stringify(campos)}`);
 
   try {
       // Llamar al método de actualización
-      const result = await db.actualizarRegistro({ nombre: databaseName }, tableName, id, campos);
+      const result = await db.actualizarRegistro({ nombre: databaseName }, tableName, IdColumName, id, campos);
 
       if (result.success) {
           res.redirect(`/abrirTabla?database=${databaseName}&table=${tableName}`);
@@ -311,21 +323,23 @@ router.post('/actualizarRegistro', async (req, res) => {
 
 
 router.post('/eliminarRegistro', async (req, res) => {
-  const { id, DBNombre, nombre } = req.body;
+  const { DBNombre, nombre, IdColumName, id } = req.body;
 
-  if (!id || !DBNombre || !nombre) {
+  if ( !DBNombre || !nombre || !IdColumName || !id ) {
       return res.status(400).send('Faltan parámetros.');
   }
+
+  console.log("datos recuperados:", { DBNombre, nombre, IdColumName, id } );
 
   try {
       const database = { nombre: DBNombre };
       const tableName = nombre;
 
       const databaseDB = new DatabaseDB();
-      const result = await databaseDB.borrarRegistro(database, tableName, id);
+      const result = await databaseDB.borrarRegistro(database, tableName, IdColumName , id);
 
       if (result.success) {
-          res.redirect(`/verTabla/${DBNombre}/${tableName}`);
+          res.redirect(`/abrirTabla?database=${DBNombre}&table=${tableName}`);
       } else {
           res.status(500).send(result.message);
       }

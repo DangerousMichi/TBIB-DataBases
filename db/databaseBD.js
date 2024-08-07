@@ -115,6 +115,8 @@ class DatabaseDB extends ConectarBD {
             }
         }
     }
+    
+    
     async borrarTabla(database, tableName) {
         if (!database || !database.nombre ) {
             console.error("El objeto de base de datos es inválido.");
@@ -190,7 +192,6 @@ class DatabaseDB extends ConectarBD {
         }
     }
     
-
     async insertarDatos(database, tableName, data) {
         if (!database || !database.nombre) {
             console.error("El objeto de base de datos es inválido.");
@@ -228,8 +229,8 @@ class DatabaseDB extends ConectarBD {
     }
        
 
-    async borrarRegistro(database, tableName, id) {
-        if (!database || !database.nombre || !tableName || !id) {
+    async borrarRegistro(database, tableName, IdColumName , id) {
+        if (!database || !database.nombre || !tableName || !IdColumName || !id) {
             console.error("Parámetros inválidos para eliminar un registro.");
             return { success: false, message: "Faltan parámetros para eliminar el registro." };
         }
@@ -244,11 +245,12 @@ class DatabaseDB extends ConectarBD {
                 port: "3306",
             });
     
-            const sql = `DELETE FROM ${tableName} WHERE id = ?`;
+            const sql = `DELETE FROM ${tableName} WHERE ${IdColumName} = ?`;
             await dbConnection.execute(sql, [id]);
     
             console.log(`Registro con id ${id} eliminado de la tabla ${tableName} en la base de datos ${database.nombre}.`);
             return { success: true, message: `Registro con id ${id} eliminado exitosamente.` };
+            
         } catch (error) {
             console.error("Error al eliminar el registro: ", error);
             return { success: false, message: `Error al eliminar el registro: ${error.message}` };
@@ -259,10 +261,10 @@ class DatabaseDB extends ConectarBD {
         }
     }
 
-
-    async actualizarRegistro(database, tableName, id, campos) {
-        if (!database || !database.nombre || !tableName || !id || !campos) {
-            console.log(`Parámetros recibidos: Database.nombre: ${database.nombre}, TableName: ${tableName}, id: ${id}, Campos: ${JSON.stringify(campos)}`);
+    
+    async actualizarRegistro(database, tableName, IdColumName, id, campos) {
+        if (!database || !database.nombre || !tableName || !IdColumName || !id || !campos) {
+            console.log(`Parámetros recibidos: Database.nombre: ${database.nombre}, TableName: ${tableName},IdColumName: ${IdColumName} ,  id: ${id}, Campos: ${JSON.stringify(campos)}`);
             console.error("Parámetros inválidos para actualizar un registro.");
             return { success: false, message: "Faltan parámetros para actualizar el registro." };
         }
@@ -276,7 +278,7 @@ class DatabaseDB extends ConectarBD {
                 .join(', ');
     
             const valores = Object.values(campos);
-            const sql = `UPDATE ${tableName} SET ${camposActualizados} WHERE id = ?`;
+            const sql = `UPDATE ${tableName} SET ${camposActualizados} WHERE ${IdColumName} = ?`;
     
             // Ejecutar la consulta
             const [result] = await this.conexion.execute(sql, [...valores, id]);

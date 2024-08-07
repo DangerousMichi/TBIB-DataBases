@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
         newRow.className = 'row';
         newRow.innerHTML = `
             <label for="column-name">Column Name</label>
-            <input type="text" class="column-name" name="columnName[]" placeholder="id_usu" required>
+            <input type="text" class="column-name" name="columnName" placeholder="nom_..." required>
 
             <label for="datatype">Datatype</label>
-            <input type="text" class="datatype" name="datatype[]" placeholder="INT" required> 
+            <input type="text" class="datatype" name="datatype" placeholder="INT, Varchar(), Double ..." required> 
             
             <label>Constraints:</label>
 
             <label for="nn">NN</label>
-            <input type="checkbox" class="nn" name="nn[]">
+            <input type="checkbox" class="nn" name="nn">
         `;
 
         columnsContainer.appendChild(newRow);

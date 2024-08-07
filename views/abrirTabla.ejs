@@ -28,7 +28,7 @@
                 <tr id="fila-<%= index %>">
                     <% columnas.forEach(columna => { %>
                         <td>
-                            <input type="hidden" id="idRegistro-<%= index %>" value="<%= fila.id %>"> <!-- Input oculto con el ID del registro -->
+                            <input type="hidden" id="idRegistro-<%= index %>" value="<%= fila[columnas[0].name] %>"> <!-- Input oculto con el ID del registro -->
                             <input type="text" name="<%= columna.name %>" id="fila-<%= index %>-<%= columna.name %>" value="<%= fila[columna.name] %>" disabled>
                         </td>
                     <% }) %>
@@ -37,21 +37,23 @@
                         <button id="boton-editar-<%= index %>" onclick="activarEdicion('<%= index %>')">Editar</button>
 
                         <!-- Botón de Guardar -->
-                        <form action="/actualizarRegistro" method="post" style="display:inline;">
+                        <form action="/actualizarRegistro" method="post" id="form-guardar-<%= index %>" style="display:inline;">
                             <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
                             <input type="hidden" name="nombre" value="<%= tableName %>">
-                            <input type="hidden" name="id" value="<%= fila.id %>"> <!-- Input oculto para el ID del registro -->
+                            <input type="hidden" name="IdColumName" value="<%= columnas[0].name %>"> <!-- Input oculto para el nombre de la primera columna -->
+                            <input type="hidden" name="id" value="<%= fila[columnas[0].name] %>"> <!-- Input oculto para el ID del registro -->
                             <% columnas.forEach(columna => { %>
-                                <input type="hidden" name="<%= columna.name %>" value="<%= fila[columna.name] %>">
+                                <input type="hidden" name="<%= columna.name %>" id="form-<%= index %>-<%= columna.name %>">
                             <% }) %>
-                            <button type="submit" id="boton-guardar-<%= index %>" style="display:none;">Guardar</button>
+                            <button type="submit" id="boton-guardar-<%= index %>" style="display:none;" onclick="prepararFormulario('<%= index %>')">Guardar</button>
                         </form>
 
                         <!-- Botón de Eliminar -->
                         <form action="/eliminarRegistro" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="<%= fila.id %>"> <!-- Suponiendo que 'id' es el identificador del registro -->
                             <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
                             <input type="hidden" name="nombre" value="<%= tableName %>">
+                            <input type="hidden" name="IdColumName" value="<%= columnas[0].name %>"> 
+                            <input type="hidden" name="id" value="<%= fila[columnas[0].name] %>">
                             <button type="submit">Eliminar</button>
                         </form>
                     </td>
@@ -75,6 +77,33 @@
         </table>
     <% } else { %>
         <div class="alert">No se encontraron datos para mostrar.</div>
+
+        <table>
+            <thead>
+                <tr>
+                    <% columnas.forEach(columna => { %>
+                        <th><%= columna.name %></th>
+                    <% }) %>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="formulario-insercion">
+                    <form action="/insertarRegistros" method="post">
+                        <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
+                        <input type="hidden" name="nombre" value="<%= tableName %>">
+                        <% columnas.forEach(columna => { %>
+                            <td>
+                                <input type="text" name="<%= columna.name %>">
+                            </td>
+                        <% }) %>
+                        <td>
+                            <button type="submit">Guardar</button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
     <% } %>
 
     <button onclick="mostrarFormulario()">Insertar registros</button>
@@ -91,6 +120,16 @@
             // Cambiar la visibilidad de los botones
             document.getElementById(`boton-editar-${index}`).style.display = 'none';
             document.getElementById(`boton-guardar-${index}`).style.display = 'inline';
+        }
+
+        function prepararFormulario(index) {
+            // Copiar los valores de los inputs editables a los inputs ocultos del formulario
+            document.querySelectorAll(`#fila-${index} input[type=text]`).forEach(input => {
+                const hiddenInput = document.getElementById(`form-${index}-${input.name}`);
+                if (hiddenInput) {
+                    hiddenInput.value = input.value;
+                }
+            });
         }
     </script>
 </body>
