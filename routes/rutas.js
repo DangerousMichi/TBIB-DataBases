@@ -325,7 +325,7 @@ router.post('/eliminarRegistro', async (req, res) => {
       const result = await databaseDB.borrarRegistro(database, tableName, id);
 
       if (result.success) {
-          res.redirect(`/verTabla/${DBNombre}/${tableName}`);
+        res.redirect(`/abrirTabla?database=${databaseName}&table=${tableName}`);
       } else {
           res.status(500).send(result.message);
       }
@@ -336,6 +336,41 @@ router.post('/eliminarRegistro', async (req, res) => {
 });
 
 
+router.get("/editarTabla", async (req, res) => {
+  const { database, table } = req.query;
+  const database1 = new DatabaseClase({ nombre: database });
+
+  try {
+      const databaseDB = new DatabaseDB();
+      const columnas = await databaseDB.obtenerColumnas(database1, table);
+      res.render("editarTabla", { tableName: table, columnas: columnas, database1: database1 });
+  } catch (error) {
+      console.error("Error al cargar la tabla para edición: ", error);
+      res.status(500).send("Error al cargar la tabla para edición: " + error.message);
+  }
+});
+
+
+router.post("/editarTabla", async (req, res) => {
+  const { DBNombre, tableName, columnName, datatype, pk, nn } = req.body;
+  const database1 = new DatabaseClase({ nombre: DBNombre });
+
+  const columns = columnName.map((name, index) => ({
+      name: name,
+      datatype: datatype[index],
+      pk: pk ? pk.includes(String(index)) : false,
+      nn: nn ? nn.includes(String(index)) : false,
+  }));
+
+  try {
+      const databaseDB = new DatabaseDB();
+      await databaseDB.editarTabla(database1, tableName, columns);
+      res.redirect(`/editarDB?database=${DBNombre}&message=Tabla editada exitosamente`);
+  } catch (error) {
+      console.error("Error al editar la tabla: ", error);
+      res.status(500).send("Error al editar la tabla: " + error.message);
+  }
+});
 
 
 

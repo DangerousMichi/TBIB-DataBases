@@ -296,6 +296,59 @@ class DatabaseDB extends ConectarBD {
         }
     }
     
+    async editarTabla(database, tableName, columns) {
+        let dbConnection;
+        try {
+            dbConnection = await this.mysql.createConnection({
+                host: "localhost",
+                database: database.nombre,
+                user: "root",
+                password: "",
+                port: "3306",
+            });
+    
+            // Obtener la estructura actual de la tabla
+            const [existingColumns] = await dbConnection.query(`SHOW COLUMNS FROM ${tableName}`);
+    
+            // Generar consultas SQL para agregar, modificar o eliminar columnas
+            const columnNames = columns.map(col => col.name);
+            const existingColumnNames = existingColumns.map(col => col.Field);
+    
+            const columnsToAdd = columns.filter(col => !existingColumnNames.includes(col.name));
+            const columnsToDrop = existingColumns.filter(col => !columnNames.includes(col.Field));
+            const columnsToModify = columns.filter(col => existingColumnNames.includes(col.name));
+    
+            // Agregar columnas
+            for (const col of columnsToAdd) {
+                let sql = `ALTER TABLE ${tableName} ADD COLUMN ${col.name} ${col.datatype}`;
+                if (col.pk) sql += ' PRIMARY KEY';
+                if (col.nn) sql += ' NOT NULL';
+                await dbConnection.query(sql);
+            }
+    
+            // Eliminar columnas
+            for (const col of columnsToDrop) {
+                await dbConnection.query(`ALTER TABLE ${tableName} DROP COLUMN ${col.Field}`);
+            }
+    
+            // Modificar columnas
+            for (const col of columnsToModify) {
+                let sql = `ALTER TABLE ${tableName} MODIFY COLUMN ${col.name} ${col.datatype}`;
+                if (col.pk) sql += ' PRIMARY KEY';
+                if (col.nn) sql += ' NOT NULL';
+                await dbConnection.query(sql);
+            }
+    
+            return { success: true, message: `Tabla "${tableName}" editada exitosamente.` };
+        } catch (error) {
+            console.error("Error al editar la tabla: ", error);
+            return { success: false, message: `Error al editar la tabla: ${error.message}` };
+        } finally {
+            if (dbConnection) {
+                await dbConnection.end();
+            }
+        }
+    }
     
 
 }

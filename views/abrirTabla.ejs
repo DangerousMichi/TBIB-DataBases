@@ -32,7 +32,7 @@
                             <input type="text" name="<%= columna.name %>" id="fila-<%= index %>-<%= columna.name %>" value="<%= fila[columna.name] %>" disabled>
                         </td>
                     <% }) %>
-                    <td>
+                    <td class="butonsInline">
                         <!-- Botón de Editar -->
                         <button id="boton-editar-<%= index %>" onclick="activarEdicion('<%= index %>')">Editar</button>
 
@@ -52,7 +52,7 @@
                             <input type="hidden" name="id" value="<%= fila.id %>"> <!-- Suponiendo que 'id' es el identificador del registro -->
                             <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
                             <input type="hidden" name="nombre" value="<%= tableName %>">
-                            <button type="submit">Eliminar</button>
+                            <button type="submit" id="btnEliminar">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -67,7 +67,7 @@
                             </td>
                         <% }) %>
                         <td>
-                            <button type="submit">Guardar</button>
+                            <button type="submit" >Guardar</button>
                         </td>
                     </form>
                 </tr>
@@ -77,7 +77,15 @@
         <div class="alert">No se encontraron datos para mostrar.</div>
     <% } %>
 
-    <button onclick="mostrarFormulario()">Insertar registros</button>
+   <div class="butonsInline">
+    <button onclick="mostrarFormulario()" id="btnInsertar">Insertar registros</button>
+
+    <form action="/editarTabla" method="post" style="display:inline;">
+        <input type="hidden" name="DBNombre" value="<%= database.nombre %>">
+        <input type="hidden" name="nombre" value="<%= tableName %>">
+        <button type="submit" id="btnEditarTab">Editar Tabla</button>
+    </form>
+   </div>
 
     <script>
         function mostrarFormulario() {
