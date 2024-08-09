@@ -374,12 +374,13 @@ router.post("/editarTabla", async (req, res) => {
   try {
       const databaseDB = new DatabaseDB();
       await databaseDB.editarTabla(database1, tableName, columns);
-      res.redirect(`/editarDB?database=${DBNombre}&message=Tabla editada exitosamente`);
+      res.redirect(`/abrirTabla?database=${DBNombre}&table=${tableName}&message=Tabla editada exitosamente`);
   } catch (error) {
       console.error("Error al editar la tabla: ", error);
       res.status(500).send("Error al editar la tabla: " + error.message);
   }
 });
+
 
 
 

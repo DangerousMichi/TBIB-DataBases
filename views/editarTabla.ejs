@@ -22,7 +22,7 @@
                         <input type="text" class="column-name" name="columnName" value="<%= columna.Field %>" id="ColumnNAme-[<%= index %>]" required>
 
                         <label for="datatype">Datatype</label>
-                        <input type="text" class="datatype"  name="datatype" value="<%= columna.Type %>" id="Type-[<%= index %>]"required>
+                        <input type="text" class="datatype"  name="datatype" value="<%= columna.Type %>" id="Type-[<%= index %>]" required>
 
                         <label for="pk">PK</label>
                         <input type="checkbox" id="PK-[<%= index %>]" class="pk" name="pk" <%= columna.Key ? 'checked' : '' %>>
@@ -36,7 +36,7 @@
             </div>
 
             <button type="button" id="add-column">Agregar Columna</button>
-            <button type="submit" class="btn">Guardar Cambios</button>
+            <button type="submit" class="btn btnGuardar">Guardar Cambios</button>
         </form>
     </div>
 

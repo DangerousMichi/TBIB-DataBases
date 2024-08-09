@@ -319,13 +319,19 @@ class DatabaseDB extends ConectarBD {
                 password: "",
                 port: "3306",
             });
+
+            console.log("editando una tabla");
     
             // Obtener la estructura actual de la tabla
             const [existingColumns] = await dbConnection.query(`SHOW COLUMNS FROM ${tableName}`);
-    
+
             // Generar consultas SQL para agregar, modificar o eliminar columnas
             const columnNames = columns.map(col => col.name);
             const existingColumnNames = existingColumns.map(col => col.Field);
+
+            console.log("Estas son las columnas que el usuario requirió y las que existen");
+            console.log(columnNames);
+            console.log(existingColumnNames);
     
             const columnsToAdd = columns.filter(col => !existingColumnNames.includes(col.name));
             const columnsToDrop = existingColumns.filter(col => !columnNames.includes(col.Field));
@@ -341,6 +347,7 @@ class DatabaseDB extends ConectarBD {
     
             // Eliminar columnas
             for (const col of columnsToDrop) {
+                console.log("Columns are being dropped");
                 await dbConnection.query(`ALTER TABLE ${tableName} DROP COLUMN ${col.Field}`);
             }
     
