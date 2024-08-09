@@ -234,7 +234,7 @@ class DatabaseDB extends ConectarBD {
             console.error("Parámetros inválidos para eliminar un registro.");
             return { success: false, message: "Faltan parámetros para eliminar el registro." };
         }
-    
+        console.log("Esta es el objeto de la base de datos recolectada",database);
         let dbConnection;
         try {
             dbConnection = await this.mysql.createConnection({
@@ -264,13 +264,20 @@ class DatabaseDB extends ConectarBD {
     
     async actualizarRegistro(database, tableName, IdColumName, id, campos) {
         if (!database || !database.nombre || !tableName || !IdColumName || !id || !campos) {
-            console.log(`Parámetros recibidos: Database.nombre: ${database.nombre}, TableName: ${tableName},IdColumName: ${IdColumName} ,  id: ${id}, Campos: ${JSON.stringify(campos)}`);
+            console.log(`Parámetros recibidos: Database.nombre: ${database.nombre}, TableName: ${tableName}, IdColumName: ${IdColumName}, id: ${id}, Campos: ${JSON.stringify(campos)}`);
             console.error("Parámetros inválidos para actualizar un registro.");
             return { success: false, message: "Faltan parámetros para actualizar el registro." };
         }
-    
+            
+        let dbConnection;
         try {
-            await this.conectarMySQL();
+            dbConnection = await this.mysql.createConnection({
+                host: "localhost",
+                database: database.nombre,
+                user: "root",
+                password: "",
+                port: "3306",
+            });
             
             // Construir la consulta SQL
             const camposActualizados = Object.entries(campos)
@@ -281,7 +288,7 @@ class DatabaseDB extends ConectarBD {
             const sql = `UPDATE ${tableName} SET ${camposActualizados} WHERE ${IdColumName} = ?`;
     
             // Ejecutar la consulta
-            const [result] = await this.conexion.execute(sql, [...valores, id]);
+            const [result] = await dbConnection.execute(sql, [...valores, id]);
     
             if (result.affectedRows > 0) {
                 console.log(`Registro con id ${id} actualizado en la tabla ${tableName} en la base de datos ${database.nombre}.`);
@@ -294,11 +301,107 @@ class DatabaseDB extends ConectarBD {
             console.error("Error al actualizar el registro: ", error);
             return { success: false, message: `Error al actualizar el registro: ${error.message}` };
         } finally {
-            await this.cerrarConexion();
+            if (dbConnection) {
+                await dbConnection.end(); // Cerrar la conexión a la base de datos
+                console.log("Conexión cerrada de la base de datos " + database.nombre);
+            }
         }
     }
     
     
+    async editarTabla(database, tableName, columns) {
+        let dbConnection;
+        try {
+            dbConnection = await this.mysql.createConnection({
+                host: "localhost",
+                database: database.nombre,
+                user: "root",
+                password: "",
+                port: "3306",
+            });
+    
+            // Obtener la estructura actual de la tabla
+            const [existingColumns] = await dbConnection.query(`SHOW COLUMNS FROM ${tableName}`);
+    
+            // Generar consultas SQL para agregar, modificar o eliminar columnas
+            const columnNames = columns.map(col => col.name);
+            const existingColumnNames = existingColumns.map(col => col.Field);
+    
+            const columnsToAdd = columns.filter(col => !existingColumnNames.includes(col.name));
+            const columnsToDrop = existingColumns.filter(col => !columnNames.includes(col.Field));
+            const columnsToModify = columns.filter(col => existingColumnNames.includes(col.name));
+    
+            // Agregar columnas
+            for (const col of columnsToAdd) {
+                let sql = `ALTER TABLE ${tableName} ADD COLUMN ${col.name} ${col.datatype}`;
+                if (col.pk) sql += ' PRIMARY KEY';
+                if (col.nn) sql += ' NOT NULL';
+                await dbConnection.query(sql);
+            }
+    
+            // Eliminar columnas
+            for (const col of columnsToDrop) {
+                await dbConnection.query(`ALTER TABLE ${tableName} DROP COLUMN ${col.Field}`);
+            }
+    
+            // Modificar columnas
+            for (const col of columnsToModify) {
+                let sql = `ALTER TABLE ${tableName} MODIFY COLUMN ${col.name} ${col.datatype}`;
+                if (col.pk) sql += ' PRIMARY KEY';
+                if (col.nn) sql += ' NOT NULL';
+                await dbConnection.query(sql);
+            }
+    
+            return { success: true, message: `Tabla "${tableName}" editada exitosamente.` };
+        } catch (error) {
+            console.error("Error al editar la tabla: ", error);
+            return { success: false, message: `Error al editar la tabla: ${error.message}` };
+        } finally {
+            if (dbConnection) {
+                await dbConnection.end();
+            }
+        }
+    }
+    
+
+    async obtenerColumnas(database, table) {
+        console.log("Entrando a /editarTabla...");
+        
+        if (!database || !database.nombre || !table) {
+            console.log(`Se ha recabado mal la información mira: database ${database}, database.nombre: ${database?.nombre}, table: ${table}`);
+            return { success: false, message: "Faltan parámetros para obtener las columnas." };
+        }
+    
+        let dbConnection;
+        try {
+            dbConnection = await this.mysql.createConnection({
+                host: "localhost",
+                database: database.nombre,
+                user: "root",
+                password: "",
+                port: "3306",
+            });
+    
+            const sql = `DESCRIBE ${table}`;
+            const [fields] = await dbConnection.execute(sql);
+    
+            console.log(`Tabla: "${table}" seleccionada en la base de datos "${database.nombre}". Columnas: `, fields);
+            
+            return { success: true, message: `Datos de tabla "${table}" seleccionados exitosamente.`, columnas: fields };
+    
+        } catch (error) {
+            console.error("Error al obtener las columnas: ", error);
+            return { success: false, message: `Error al obtener las columnas: ${error.message}` };
+    
+        } finally {
+            if (dbConnection) {
+                await dbConnection.end(); // Cerrar la conexión a la base de datos
+                console.log("Conexión cerrada de la base de datos " + database.nombre);
+            }
+        }
+    }
+    
+
 
 }
 module.exports = DatabaseDB;

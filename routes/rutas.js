@@ -256,29 +256,6 @@ router.post('/abrirTab', async (req, res) => {
   }
 });
 
-// router.get('/abrirTabla', (req, res) => {
-//   const dbNombre = req.query.DBNombre;
-//   const tableName = req.query.nombre;
-
-//   // Conectar a la base de datos y obtener los datos
-//   db.connect(dbNombre, (err, connection) => {
-//       if (err) throw err;
-      
-//       const query = `SELECT * FROM ${tableName}`;
-//       connection.query(query, (err, results) => {
-//           if (err) throw err;
-
-//           const columnas = Object.keys(results[0]).map(col => ({ name: col }));
-//           res.render('abrirTabla', {
-//               database: { nombre: dbNombre },
-//               tableName: tableName,
-//               columnas: columnas,
-//               datos: results
-//           });
-//           connection.end();
-//       });
-//   });
-// });
 
 router.post('/insertarRegistros', async (req, res) => {
   const { DBNombre, nombre, ...data } = req.body;
@@ -296,19 +273,19 @@ router.post('/insertarRegistros', async (req, res) => {
 
 router.post('/actualizarRegistro', async (req, res) => {
   const { DBNombre, nombre, IdColumName , id, ...campos } = req.body;
-  const databaseName = DBNombre; 
+  const database = { nombre: DBNombre };
   const tableName = nombre;
 
   console.log(`id del Registro recuperado: ${id}`);
   console.log(`Nombre de la columna id recuperado: ${IdColumName}`);
-  console.log(`Datos recuperados del req.body en /actualizarRegistro: DBNombre: ${databaseName}, tableName: ${tableName}, idRegistro: ${id}, campos: ${JSON.stringify(campos)}`);
+  console.log(`Datos recuperados del req.body en /actualizarRegistro: DBNombre: ${DBNombre}, tableName: ${tableName}, idRegistro: ${id}, campos: ${JSON.stringify(campos)}`);
 
   try {
       // Llamar al método de actualización
-      const result = await db.actualizarRegistro({ nombre: databaseName }, tableName, IdColumName, id, campos);
+      const result = await db.actualizarRegistro(database , tableName, editar, id, campos);
 
       if (result.success) {
-          res.redirect(`/abrirTabla?database=${databaseName}&table=${tableName}`);
+          res.redirect(`/abrirTabla?database=${DBNombre}&table=${tableName}`);
       } else {
           res.status(404).send(result.message);
       }
@@ -349,7 +326,60 @@ router.post('/eliminarRegistro', async (req, res) => {
   }
 });
 
+router.post("/editTab", async (req, res) => {
+  const { DBNombre, nombre } = req.body;
+  const database1 = new DatabaseClase({ nombre: DBNombre });
 
+  try {
+      const databaseDB = new DatabaseDB();
+      res.redirect(`/editarTabla?database=${DBNombre}&table=${nombre}&message=Tabla disponible para editar`);
+  } catch (error) {
+      console.error("Error al editar la tabla: ", error);
+      res.status(500).send("Error al editar la tabla: " + error.message);
+  }
+});
+
+router.get("/editarTabla", async (req, res) => {
+  const { database, table } = req.query;
+  const database1 = new DatabaseClase({ nombre: database });
+  
+  try {
+      const databaseDB = new DatabaseDB();
+      const result = await databaseDB.obtenerColumnas(database1, table);
+      if (result.success) {
+          res.render("editarTabla", { tableName: table, columnas: result.columnas, database1: database1 });
+      } else {
+          res.status(404).send(result.message);
+      }
+  } catch (error) {
+      console.error("Error al cargar la tabla para edición: ", error);
+      res.status(500).send("Error al cargar la tabla para edición: " + error.message);
+  }
+});
+
+
+
+
+router.post("/editarTabla", async (req, res) => {
+  const { DBNombre, tableName, columnName, datatype, pk, nn } = req.body;
+  const database1 = new DatabaseClase({ nombre: DBNombre });
+
+  const columns = columnName.map((name, index) => ({
+      name: name,
+      datatype: datatype[index],
+      pk: pk ? pk.includes(String(index)) : false,
+      nn: nn ? nn.includes(String(index)) : false,
+  }));
+
+  try {
+      const databaseDB = new DatabaseDB();
+      await databaseDB.editarTabla(database1, tableName, columns);
+      res.redirect(`/editarDB?database=${DBNombre}&message=Tabla editada exitosamente`);
+  } catch (error) {
+      console.error("Error al editar la tabla: ", error);
+      res.status(500).send("Error al editar la tabla: " + error.message);
+  }
+});
 
 
 
