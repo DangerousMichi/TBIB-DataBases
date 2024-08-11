@@ -86,7 +86,7 @@ h2{
 }
 
 
-input {
+input , select  {
     margin-bottom: 20px;
     margin-right: 10px;
     background: rgba(255, 255, 255, 0.2);
@@ -141,4 +141,9 @@ a {
 .ocultar {
     display: none;
     visibility: hidden;
+}
+
+option{
+    color: #0056b3;
+    background-color: #ffffff4f;
 }

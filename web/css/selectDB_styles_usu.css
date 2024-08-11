@@ -7,7 +7,7 @@
 /* Estilo del cuerpo del documento */
 body {
     background: #0a2644;
-    background-image: url(/img/createdb_background.png);
+    background-image: url(/img/selectDBBackground_purple.jpeg);
     height: 100vh;
     background-size:cover;
     background-position: center;
@@ -17,6 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     font-family: 'Courier New', Courier, monospace;
+    position: relative;
 }
 
 
@@ -209,6 +210,7 @@ input{
     padding: 20px; /* Espaciado interno */
     border: 1px rgb(22, 44, 103);
     transition: transform 0.3s;
+    backdrop-filter: blur(10px); /* Efecto blur en el fondo */
 
 }
 
@@ -240,4 +242,16 @@ input{
 .database-item_name{
     margin-bottom: 10px;
 
+}
+
+
+dotlottie-player{
+    position: absolute;
+}
+
+.video-container {
+    z-index: 1;
+    position: absolute;
+    transform: scaleX(-1); /* Voltea horizontalmente */
+    overflow: hidden; /* Evita que el video se desborde */
 }

@@ -6,9 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/selectDB_styles_usu.css">
     <link rel="icon" href="/img/logSignPorfile.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/crearDB_styles.css">
     <script src="https://kit.fontawesome.com/e6060c4e37.js" crossorigin="anonymous"></script>
     <title>Create DataBase</title>
 </head>
@@ -16,33 +16,7 @@
     <iframe src="https://assets.pinterest.com/ext/embed.html?id=492649952031909" ></iframe>
 
 
-    <h1>Create Database!</h1>
-
-    <div class="square">
-        
-
-        <form action="/crearNuevaDb" method="post" class="crearDb container">
-
-            <div class="panelInput">
-                
-                <label class="dbname">Database name:</label> 
-
-                <div class="panelInp"> 
-                    <input autofocus type="text" name="nombre" id="nombre" placeholder="new_database" required>
-                    <span class="errorNombre ocultar"><strong>Nombre invalido, debe ser mayor a 3 caracteres y sin espacios</strong></span>
-                </div>
-                    <div class="marks">
-                        <i class="fa-solid fa-xmark ocultar xmarkErrorNombre"></i>
-                        <i class="fa-solid fa-check checkMarkNombre ocultar"></i>  
-                    </div>
-                    
-                <div class="botones">
-                    <button type="submit" class="accept btn">Crear</button>
-                </div>      
-            </div>
-
-        </form>
-    </div>
+    <h1>SELECT DATABASE!</h1>
 
     
     <div class="contenedor">
@@ -59,12 +33,9 @@
                         <div class="database-item_action">
                             <form action="/editarDB" method="POST">
                                 <input type="hidden" name="nombre" value="<%= db.Database %>">
-                                <button type="submit" id="editar" class="btn TabAction">editar</button>
+                                <button type="submit" id="editar" class="btn TabAction">consultar</button>
                             </form>
-                            <form action="/borrarDB" method="POST">
-                                <input type="hidden" name="nombre" value="<%= db.Database %>">
-                                <button type="submit" id="eliminar" class="btn TabAction">borrar</button>
-                            </form> 
+
                         </div>
 
                     </div>
@@ -74,6 +45,13 @@
             No hay bases de datos disponibles. <!-- Mensaje en caso de que no haya bases de datos -->
         <% } %>
     </div>
+
+    <!-- <div class="video-cpntainer">
+        <video autoplay >
+            <source src="/img/selectDB.mp4" type="video/mp4">
+        </video>
+    </div> -->
+
     <script src="/js/crearDB_Validacion.js"></script>
 </body>
 </html>

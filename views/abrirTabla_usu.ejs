@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de la Tabla <%= tableName ? tableName : '' %></title>
+    <link rel="stylesheet" href="/css/abrirTabla_styles.css">
+</head>
+<body>
+    <h1>Datos de la Tabla "<%= tableName ? tableName : '' %>"</h1>
+
+    <% if (message) { %>
+        <div class="alert"><%= message %></div>
+    <% } %>
+
+    <% if (columnas && columnas.length > 0 && datos && datos.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <% columnas.forEach(columna => { %>
+                        <th><%= columna.name %></th>
+                    <% }) %>
+                </tr>
+            </thead>
+            <tbody>
+                <% datos.forEach((fila, index) => { %>
+                <tr id="fila-<%= index %>">
+                    <% columnas.forEach(columna => { %>
+                        <td>
+                            <input type="hidden" id="idRegistro-<%= index %>" value="<%= fila[columnas[0].name] %>"> <!-- Input oculto con el ID del registro -->
+                            <input type="text" name="<%= columna.name %>" id="fila-<%= index %>-<%= columna.name %>" value="<%= fila[columna.name] %>" disabled>
+                        </td>
+                    <% }) %>
+                </tr>
+                <% }) %>
+                <tr id="formulario-insercion" style="display: none;">
+                    <% columnas.forEach(columna => { %>
+                        <td>
+                            <input type="text" name="<%= columna.name %>">
+                        </td>
+                    <% }) %>
+                </tr>
+            </tbody>
+        </table>
+    <% } else { %>
+        <div class="alert">No se encontraron datos para mostrar.</div>
+    <% } %>
+</body>
+</html>

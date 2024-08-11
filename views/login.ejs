@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>logIn</title>
     <link rel="stylesheet" href="/css/login_styles.css">
+    <link rel="icon" href="/img/logSignPorfile.svg" type="image/x-icon">
+
     <!-- Incluye Font Awesome para los iconos -->
 </head>
 <body>
@@ -15,7 +17,7 @@
             </div>
             <form action="/agregarUsuario" method="post" id="login-form">
 
-                <h2>LOGIN</h2>
+                <h2>CREAR NUEVO ACCESO</h2>
 
                 <div class=input_table>
 
@@ -25,10 +27,14 @@
                     </div>
 
                     <div class="labelDiv labelUP">
-                        <label class="label" for="e-mail">Correo electrónico:</label> <span class="errorNombreUsuario ocultar">Correo invalido</span>
-                        <input name="correo" id="correo" type="text" placeholder="Ingresa tu Correo electrónico" required>
+                        <label class="label" for="e-mail">Tipo de acceso:</label> <span class="errorNombreUsuario ocultar">Correo invalido</span>
+                            <select name="tipoAcceso" id="selectAcceso">
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="GUEST">Invitado</option>
+                            </select>                    
                     </div>
-                
+    
+
                     <div class="labelDiv">
                         <label class="label" for="username">Usuario:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
                         <input name="nombreUsuario" id="nombreUsuario" type="text" placeholder="Ingresa un nombre de usuario" required>
@@ -40,9 +46,8 @@
                     </div>
 
                 </div>
-                <button type="submit">REGISTRARSE</button>
+                <button type="submit">crear acceso</button>
             </form>
-            <small>¿Ya tienes una cuenta? <a href="/signIn">Inicia sesión</a>.</small>
         </div>
     </div>
            

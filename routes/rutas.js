@@ -381,7 +381,53 @@ router.post("/editarTabla", async (req, res) => {
   }
 });
 
+router.get("/selectDB", async (req, res)=>{
 
+  try {
+    const databaseDB = new DatabaseDB();
+    const result = await databaseDB.mostrarDatabases();
+    console.log("Result from mostrarDatabases:", result); // Verifica el resultado aquí
+    res.render("selectDB_usu", { databases: result, error: null });
+} catch (error) {
+    console.error("Error al mostrar las bases de datos: ", error);
+    res.render('selectDB_usu', { databases: [], error: "Error al mostrar las bases de datos" });
+}
+});
+
+
+
+router.get('/abrirTablaGuest', async (req, res) => {
+  const { database, table, message } = req.query;
+  console.log(`Parametros recibidos: database=${database}, table=${table}`); // Agrega logs para verificar los parámetros
+
+  if (!database || !table) {
+    return res.status(400).send("Parámetros faltantes: nombre de la base de datos y nombre de la tabla son requeridos.");
+  }
+
+  try {
+    const databaseDB = new DatabaseDB();
+    const result = await databaseDB.abrirTabla({ nombre: database }, table);
+
+    console.log("Datos a renderizar:", { 
+      tableName: table,
+      columnas: result.columnas,
+      datos: result.datos,
+      database: { nombre: database },
+      message: message || null
+    });    
+
+    res.render('abrirTabla_usu', {
+      tableName: table,
+      columnas: result.columnas,
+      datos: result.datos,
+      database: { nombre: database },
+      message: message || null,
+    });
+  } catch (error) {
+    console.error("Error al abrir la tabla:", error);
+    res.status(500).send("Error al abrir la tabla: " + error.message);
+  }
+});
 
 
 
