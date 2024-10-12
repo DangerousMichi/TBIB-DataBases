@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tablas</title> <!-- Cambia el título para que sea coherente -->
+    <link rel="stylesheet" href="/css/editarDB_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/crearTablas_styles_usu.css">
+    <%- include("templates/icon") %>
+    <script src="https://kit.fontawesome.com/e6060c4e37.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Tablas de tu base de datos "<%= database1.nombre %>"</h1> <!-- Asegúrate de pasar 'database1' correctamente -->
+    
+    <div class="pricing-container">
+        <div class="contenedor">
+            <% if (tables && tables.length > 0) { %>
+                <% tables.forEach(function(tab) { %>
+                    <div class="tabla-BD">
+                        <span class="database-item_name">
+                            <strong><%= tab.nombre %></strong> 
+                        </span>
+                        <div class="database-item_action">
+
+                            <form action="/abrirTab_inv" method="POST">
+                                <input type="hidden" name="DBNombre" value="<%= database1.nombre %>"> 
+                                <input type="hidden" name="nombre" value="<%= tab.nombre %>">
+                                <button type="submit" id="editar" class="btnB TabAction">abrir</button>
+                            </form>
+
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No hay Tablas disponibles.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

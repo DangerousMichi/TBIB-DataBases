@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signIn</title>
+    <link rel="stylesheet" href="/css/signIn_styles.css">
+    <!-- Incluye Font Awesome para los iconos -->
+</head>
+<body>
+   
+    <div class="login-container">
+        <div class="Panel">
+            <div class="icon">
+                <img src="img/logSignPorfile.svg" alt="Icon">
+            </div>
+            <form  action="/DarAcceso"  method="post"  id="login-form">
+                 <h2>BIENVENIDO ADMIN</h2>
+                
+                <div class="labelDiv">
+                    <label class="label" for="username">Usuario:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
+                </div>
+                <input autofocus name="nomUsu" id="nombreUsuario" placeholder="Nombre de Usuario" type="text" required>
+                
+
+                <div class="labelDiv">
+                    <label class="label" for="password">Contraseña:</label> <span class="errorContraseña ocultar">Contraseña incorrecta</span>
+                </div>    
+                    <input name="password" id="password" type="password" placeholder="Ingresa tu contraseña" required>
+                
+                    <input type="hidden" name="usu_name"  value="usu_admin">
+                    <input type="hidden" name="tableName" value="admins">
+                    <input type="hidden" name="con_name"  value="con_admin">
+
+                <button type="submit">SIGN IN</button>
+            </form>
+
+        </div>
+    </div>
+           
+</body>
+</html>

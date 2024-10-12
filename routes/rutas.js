@@ -6,10 +6,6 @@ const DatabaseClase = require("../clases/databaseClase");
 const DatabaseDB = require("../db/databaseBD");
 const db = new DatabaseDB();
 
-
-
-
-
 router.get('/', (req, res) => {
     res.render('wellcome'); // Renderizar la vista index.ejs
   });
@@ -39,21 +35,48 @@ router.get('/', (req, res) => {
     res.render("showDB")
   })
 
-  router.post("/agregarUsuario", async (req, res) => {
-
-   console.log(req.body);
+  router.post("/CrearAcceso", async (req, res) => {
+    console.log(req.body);
     const usuario1 = new UsuarioClase(req.body);
 
-    if (usuario1.nombre!=undefined && usuario1.correo!=undefined && usuario1.nombreUsuario!=undefined && usuario1.password!=undefined) {
+    if (usuario1.nombre && usuario1.tipoAcceso && usuario1.nombreUsuario && usuario1.key) {
         const usuarioDB = new UsuarioDB();
-        usuarioDB.nuevoUsuario(usuario1.obtenerDatos);
-        res.render("signin", usuario1.obtenerDatos);
-    } 
-    else {
+        try {
+            await usuarioDB.nuevoUsuario(usuario1.obtenerDatos());
+            res.redirect("login");
+        } catch (error) {
+            console.error("Error al insertar datos en MySQL: ", error);
+            res.render("error"); // Renderiza una vista de error si ocurre una excepción
+        }
+    } else {
         res.render("error");
-        console.error("Error al insertar datos en MySql: ", error);
+        console.error("Datos incompletos proporcionados para crear acceso.");
     }
-   });
+});
+
+
+
+   router.post("/DarAcceso", async (req, res) => {
+    console.log(req.body); // Esto mostrará el objeto recibido en la consola
+
+    const usuario1 = new UsuarioClase(req.body);
+
+    // Asegúrate de que los atributos existen
+    if (usuario1.nombre !== undefined && usuario1.tipoAcceso !== undefined && usuario1.nombreUsuario !== undefined && req.body.password !== undefined) {
+        const usuarioDB = new UsuarioDB();
+        try {
+            await usuarioDB.nuevoUsuario(usuario1.obtenerDatos());
+            res.render("signin"); // Renderiza la vista de inicio de sesión
+        } catch (error) {
+            console.error("Error al insertar datos en MySql: ", error);
+            res.render("error"); // Renderiza la vista de error
+        }
+    } else {
+        res.render("error"); // Renderiza la vista de error
+        console.error("Datos incompletos");
+    }
+});
+  
 
    router.get('/crearDB', async (req, res) => {
     try {
@@ -148,7 +171,7 @@ router.post('/editarDB', async (req, res) => {
       const { DBNombre, tableName } = req.body;
     const columnNames = req.body.columnName || [];
     const dataTypes = req.body.datatype || [];
-    const pks = req.body.pk || [];
+    const pls = req.body.pk || [];
     const nns = req.body.nn || [];
 
     if (!DBNombre || !tableName) {
@@ -381,6 +404,15 @@ router.post("/editarTabla", async (req, res) => {
   }
 });
 
+
+
+
+// rutas de usuarios 
+
+router.get("/letsSelect", (req, res)=>{
+  res.render("letsSelect");
+})
+
 router.get("/selectDB", async (req, res)=>{
 
   try {
@@ -394,9 +426,47 @@ router.get("/selectDB", async (req, res)=>{
 }
 });
 
+router.get("/selectTablas", async (req, res) => {
+  const database1 = new DatabaseClase(req.query);
+  console.log("Database object:", database1);
+  const message = req.query.message || null; 
+
+  try {
+      const databaseDB = new DatabaseDB();
+      const result = await databaseDB.mostrarTablas(database1);
+      console.log("Result from mostrarTablas:", result);
+      res.render("selectTablas_usu", { tables: result, database1: database1, message: message }); 
+  } catch (error) {
+      console.error("Error al mostrar las tablas de la base de datos seleccionada: ", error);
+      res.render('crearDB', { tables: [], error: "Error al mostrar las tablas de la base de datos" });
+  }
+});
 
 
-router.get('/abrirTablaGuest', async (req, res) => {
+router.post('/selectTablas', async (req, res) => {
+  console.log(req.body);
+  const database1 = new DatabaseClase(req.body);
+  const message = null; // Inicializa message aquí
+
+  if (database1.nombre !== undefined) {
+      const databaseDB = new DatabaseDB();
+
+      try {
+          const result = await databaseDB.mostrarTablas(database1);
+          console.log("Result from mostrarTablas:", result);
+          res.render("selectTablas_usu", { tables: result, database1: database1, message: message, error: null });
+      } catch (error) {
+          console.error("Error al mostrar las tablas de la base de datos seleccionada: ", error);
+          res.render('crearDB', { tables: [], error: "Error al mostrar las tablas de la base de datos" });
+      }
+  } else {
+      res.redirect('/crearDB');
+  }
+});
+
+
+
+router.get('/abrirTabla_inv', async (req, res) => {
   const { database, table, message } = req.query;
   console.log(`Parametros recibidos: database=${database}, table=${table}`); // Agrega logs para verificar los parámetros
 
@@ -430,5 +500,48 @@ router.get('/abrirTablaGuest', async (req, res) => {
 });
 
 
+router.post('/abrirTab_inv', async (req, res) => {
+  const databaseNombre = req.body.DBNombre;
+  const tableName = req.body.nombre;
+  console.log("nombre de la tabla recuperado:", tableName);
+  const database1 = new DatabaseClase({ nombre: databaseNombre });
 
-   module.exports = router;
+  try {
+      const databaseDB = new DatabaseDB();
+      const result = await databaseDB.abrirTabla(database1, tableName);
+
+      if (!result.columnas || result.columnas.length === 0) {
+          throw new Error("No se obtuvieron columnas de la tabla.");
+      }
+
+      if (!result.datos) {
+          result.datos = [];
+      }
+
+      res.render("abrirTabla_usu", { database: database1, tableName: tableName, columnas: result.columnas, datos: result.datos, message: result.message });
+  } catch (error) {
+      console.error("Error al abrir la tabla:", error);
+      res.render('abrirTabla_usu', { tableName: tableName, columnas: [], datos: [], message: "Error al abrir la tabla." });
+  }
+});
+
+
+
+ router.get("/AdmnistrarAccessos" , (req, res)=>{
+    res.render("login");
+ });
+
+
+ 
+ router.get("/IniciarSesion_admin" , (req, res)=>{
+  res.render("signin_admin");
+});
+
+
+router.get("/IniciarSesion_inv" , (req, res)=>{
+  res.render("signin_usu");
+});
+
+
+
+  module.exports = router;

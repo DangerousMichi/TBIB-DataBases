@@ -6,7 +6,7 @@ class Usuario {
          }
         this.id = usuario.idusuario;
         this.nombre = usuario.nombre;
-        this.correo = usuario.correo;
+        this.tipoAcceso = usuario.tipoAcceso;
         this.nombreUsuario = usuario.nombreUsuario;
         this.password = usuario.password;
 
@@ -26,14 +26,9 @@ class Usuario {
         }
     }
 
-    set correo(correo) {
-        var regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (regexCorreo.test(correo)) {
-            this._correo = correo;
-        } else {
-            console.error("Correo inválido");
-            this._correo = null;
-        }
+    set tipoAcceso(tipoAcceso) {
+
+            this._tipoAcceso=tipoAcceso;
         }
 
     set nombreUsuario(nombreUsuario) {
@@ -48,13 +43,8 @@ class Usuario {
     }
 
     set password(password) {
-        var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-        if (regexPassword.test(password)) {
+        
             this._password = password;
-        } else {
-            console.error("contraseña inválido");
-            this._password = null;
-        }
     }
 
 
@@ -65,8 +55,8 @@ class Usuario {
     get nombre() {
         return this._nombre;
     }
-    get correo() {
-        return this._correo;
+    get tipoAcceso() {
+        return this._tipoAcceso;
     }
     get nombreUsuario() {
         return this._nombreUsuario;
@@ -79,7 +69,7 @@ class Usuario {
         return {
             idusuario: this.id,
             nombre: this.nombre,
-            correo: this.correo,
+            tipoAcceso: this.tipoAcceso,
             nombreUsuario: this.nombreUsuario,
             password: this.password
         }

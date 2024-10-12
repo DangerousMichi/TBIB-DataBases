@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/', rutas);
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Servidor iniciado en http://localhost:${port}`);
 });

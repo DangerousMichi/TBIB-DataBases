@@ -6,75 +6,41 @@ class UsuarioDB extends ConectarBD {
     }
 
     async nuevoUsuario(usuario) {
-        const sql = "INSERT INTO usuarios VALUES( null, '"+usuario.nombre+"', '"+usuario.correo+"' , '"+usuario.nombreUsuario+"', '"+usuario.password+"');";
+        const sql = `CALL crearAcceso("${usuario.nombre}", "${usuario.tipoAcceso}", "${usuario.nombreUsuario}", "${usuario.password}");`;
         try {
             await this.conectarMySQL();
             await this.conexion.execute(sql);
             await this.cerrarConexion();
-            console.log("Dato insertado a MySql");
+            console.log("Acceso creado con éxito");
         } catch (error) {
-            console.error("Error al insertar datos en MySql" +error);
-            console.error(sql);
+            console.error("Error al insertar datos en MySQL: ", error);
+            console.error("SQL ejecutado: ", sql);
+            throw error; // Esto permitirá que el error se propague y sea capturado en el manejador de rutas
         }
     }
-
-    async mostrarUsuarios(){
-        const sql = "SELECT * FROM usuarios";
-        var usuariosBD;
-        try{
-            await this.conectarMySQL();
-            [usuariosBD]=await this.conexion.execute(sql);
-            await this.cerrarConexion();
-            console.log("Usuarios Recuperados");
-            // console.log(usuariosBD);
-            return usuariosBD;
-        } catch (error){
-            console.error("Error al recuperar los datos de usuarios "+error);
-            console.error(sql);
-        }
-    }
-    async buscarUsuarioPorID(idUsuario){
-        const sql="SELECT * FROM usuarios WHERE idusuario="+ idUsuario;
+    
+    async verificarAcceso(usuario, usu_name, tableName, con_name) {
+        const sql = `SELECT COUNT(*) AS count
+                     FROM ${tableName}
+                     WHERE ${usu_name} = ? AND ${con_name} = ?;`;
         try {
             await this.conectarMySQL();
-            const usuario=await this.conexion.execute(sql);
+            const [rows] = await this.conexion.execute(sql, [usuario.nombreUsuario, usuario.password]);
             await this.cerrarConexion();
-            console.log("Usuario registrado correctamente");
-            return usuario;
-        } catch (error){
-            console.error("Error al recuperar el usuario "+ error);
-            console.error(sql);
-        }
-    }
-
-    async editarUsuario(usuario){
-        const sql2=`
-        UPDATE usuarios SET
-        nombre="${usuario.nombre}",
-        celular="${usuario.celular}",
-        correo="${usuario.correo}"
-        WHERE idusuario="${usuario.idusuario}"
-        `;
-        try {
-            await this.conectarMySQL();
-            await this.conexion.execute(sql2);
-            await this.cerrarConexion();
+    
+            const count = rows[0].count;
+    
+            if (count > 0) {
+                return { existe: true, mensaje: 'El usuario existe y tiene acceso.' };
+            } else {
+                return { existe: false, mensaje: 'El usuario no existe o la contraseña es incorrecta.' };
+            }
         } catch (error) {
-            console.error("Error al editar usuario"+error);
-            console.error(sql12);
-        }
-    }
-
-    async borrarUsuario(idusuario){
-        const sql="DELETE FROM usuarios WHERE idusuario="+idusuario;
-        try {
-            await this.conectarMySQL();
-            await this.conexion.execute(sql);
-            await this.cerrarConexion();
-        } catch (error) {
-            console.error("Error al borrar el usuario"+error);
+            console.error("Error al verificar acceso en MySql: " + error);
             console.error(sql);
+            return { existe: false, mensaje: 'Error en la verificación del acceso.' };
         }
     }
+    
 }
 module.exports = UsuarioDB;

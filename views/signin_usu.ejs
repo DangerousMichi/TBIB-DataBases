@@ -14,13 +14,13 @@
             <div class="icon">
                 <img src="img/logSignPorfile.svg" alt="Icon">
             </div>
-            <form  action="/signIn"  method="post"  id="login-form">
-                 <h2>SIGN IN</h2>
+            <form  action="/DarAcceso"  method="post"  id="login-form">
+                 <h2>BIENVENIDO INVITADO</h2>
                 
                 <div class="labelDiv">
                     <label class="label" for="username">Usuario:</label> <span class="errorNombreUsuario ocultar">Nombre de Usuario invalido</span>
                 </div>
-                <input autofocus name="nombreUsuario" id="nombreUsuario" placeholder="Nombre de Usuario" type="text" required>
+                <input autofocus name="nomUsu" id="nombreUsuario" placeholder="Nombre de Usuario" type="text" required>
                 
 
                 <div class="labelDiv">
@@ -29,9 +29,13 @@
                     <input name="password" id="password" type="password" placeholder="Ingresa tu contraseña" required>
                 
 
-                <button href="/createDb"  type="submit">SIGN IN</button>
+                    <input type="hidden" name="usu_name"  value="usu_guest">
+                    <input type="hidden" name="tableName" value="invitados">
+                    <input type="hidden" name="con_name"  value="con_guest">
+
+                <button type="submit">SIGN IN</button>
             </form>
-            <small>¿No tienes una cuenta? <a href="/logIn">registrate</a>.</small>
+
         </div>
     </div>
            

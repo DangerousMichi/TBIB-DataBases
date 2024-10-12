@@ -13,8 +13,6 @@
     <title>Create DataBase</title>
 </head>
 <body>
-    <iframe src="https://assets.pinterest.com/ext/embed.html?id=492649952031909" ></iframe>
-
 
     <h1>SELECT DATABASE!</h1>
 
@@ -31,9 +29,9 @@
                         </span>
 
                         <div class="database-item_action">
-                            <form action="/editarDB" method="POST">
+                            <form action="/selectTablas" method="POST">
                                 <input type="hidden" name="nombre" value="<%= db.Database %>">
-                                <button type="submit" id="editar" class="btn TabAction">consultar</button>
+                                <button type="submit" id="editar" class="btn TabAction"><strong>ver</strong></button>
                             </form>
 
                         </div>
@@ -45,12 +43,6 @@
             No hay bases de datos disponibles. <!-- Mensaje en caso de que no haya bases de datos -->
         <% } %>
     </div>
-
-    <!-- <div class="video-cpntainer">
-        <video autoplay >
-            <source src="/img/selectDB.mp4" type="video/mp4">
-        </video>
-    </div> -->
 
     <script src="/js/crearDB_Validacion.js"></script>
 </body>

@@ -1,0 +1,156 @@
+
+.square {
+    width: 900px;   
+    background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255); /* Sombra suave para darle profundidad */
+    padding: 40px; /* Espacio interno si es necesario */
+    text-align: center; /* Centra el texto horizontalmente */
+    position: relative;
+}
+
+#tableName-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.187); /* Blanco con 50% de transparencia */
+    border-radius: 20px; /* Ajusta el radio para redondear los bordes */
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
+    height: 60px;
+    width: 850px;
+    padding: 20px;
+    margin-bottom: 55px;
+
+}
+
+
+#engine{
+    width: 300px;
+}
+
+.form-container{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.row {
+    
+    margin-bottom: 15px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.table-name{
+    color: #bdc3c7;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.l1{
+    display: flex;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.btn {
+    background-color: #1ABC9C;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #16A085;
+}
+
+
+#plus{
+    position: absolute;
+    left: 80px;
+}
+
+#less{
+    position: absolute;
+    left: 150px;
+}
+a{
+    text-decoration: none;
+}
+
+
+
+.panelInp{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 50px;
+}
+
+#tableName-group{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: 50px;
+}
+
+.contenedor{
+    padding: 77px;
+    height: 339px;
+    box-shadow: 0px 30px 106px rgba(68, 168, 255, 0.598);
+    border-radius: 30px;
+}
+
+.tabla-BD{
+    min-width: 300px;
+    font-size: 23;
+
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #09237a;
+}
+
+
+
+/* Estilo para el scrollbar en navegadores WebKit */
+.contenedor::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+    border-radius: 20px;
+}
+
+.contenedor::-webkit-scrollbar-track {
+    background: #bebebe8a; /* Color del fondo del track */
+    border-radius: 20px;
+}
+
+.contenedor::-webkit-scrollbar-thumb {
+    background: #34a7ffb1; /* Color del thumb */
+    border-radius: 10px; /* Bordes redondeados del thumb */
+}
+
+.contenedor::-webkit-scrollbar-thumb:hover {
+    background: #0091ff; /* Color del thumb al pasar el mouse */
+}

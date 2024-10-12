@@ -7,7 +7,7 @@
 /* Estilo del cuerpo del documento */
 body {
     background: #0a2644;
-    background-image: url(/img/selectDBBackground_purple.jpeg);
+    background-image: url(/img/selectDB_background.png);
     height: 100vh;
     background-size:cover;
     background-position: center;
@@ -83,7 +83,7 @@ input{
 }
 
 .btn{
-    background-color: #3884c3; /* Color de fondo */
+    background-color: #018dff; /* Color de fondo */
     border: none;
     color: white;
     text-align: center;
@@ -102,6 +102,7 @@ input{
 
 .accept:hover{
     background-color: aqua;
+    color: #0a2644;
 }
 
 .TabAction{
@@ -110,92 +111,22 @@ input{
 }
 
 .btn:hover{
-    background-color: #235985; /* Color de fondo */
-    color: rgb(255, 255, 255);
+    background-color: #7fc5ff; /* Color de fondo */
+    color: rgb(0, 46, 125);
 }
-
-#eliminar:hover{
-    background-color: red;
-    color: aliceblue;
-}
-
-#name{
-    width: 800px;
-}
-
-
-.errorInput{
-    background-color: rgb(235, 196, 196) ;
-    border: solid 2px red;
-}
-
-.correctoInput{
-    background-color: rgb(178, 221, 184) ;
-    border: solid 2px rgb(74, 201, 11);
-}
-
-.errorNombre{
-    font-size: small;
-    color: red;
-    
-}
-
-.marks{
-    display: flex;
-    align-items: baseline;
-    flex-direction: row;
-}
-
-.xmarkErrorNombre{
-    color: rgb(255, 255, 255);
-    background-color: red;
-    padding: 4px;
-    border-radius: 10px;
-}
-
-.checkMarkNombre{
-    color: rgb(255, 255, 255);
-    background-color: green;
-    padding: 4px;
-    border-radius: 10px;
-}
-
-
-
-.ocultar{
-    visibility: hidden;
-}
-
-.marks{
-    position: relative;
-    height: 15px;
-    width: 20px;
-    margin-right: 10px;
-}
-
-
-
-.fa-solid{
-    position: absolute;
-    top: 0px;
-}
-
-
-
-
-
 
 .contenedor {
     color:rgb(12, 25, 63);
     display: grid;
     grid-template-columns: repeat(3, 2fr); /* 3 columnas de igual tamaño */
     gap: 20px; /* Espacio entre celdas */
-    width: 1000px;
-    height: 300px;
+    width: 1200px;
+    height: 500px;
     overflow-y: auto;
     padding: 50px;
-    border: #214f6e;
-    font-size: 19px;
+    border-radius: 25px;
+    box-shadow: 0px 30px 106px rgba(68, 168, 255, 0.598);
+    font-size: 25px;
 }
 
 .database-item_box {
@@ -217,9 +148,9 @@ input{
 .database-item_box:hover{
     transform: scale(1.09);
     cursor: pointer;
-    background-color: #13297365;
+    background-color: #5629e865;
     color: azure;
-    border: solid 1.5px rgb(49, 73, 227);
+    border: solid 1.5px rgb(111, 49, 227);
 }
 
 .database-item_action{
@@ -254,4 +185,25 @@ dotlottie-player{
     position: absolute;
     transform: scaleX(-1); /* Voltea horizontalmente */
     overflow: hidden; /* Evita que el video se desborde */
+}
+
+
+/* Estilo para el scrollbar en navegadores WebKit */
+.contenedor::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+    border-radius: 20px;
+}
+
+.contenedor::-webkit-scrollbar-track {
+    background: #bebebe8a; /* Color del fondo del track */
+    border-radius: 20px;
+}
+
+.contenedor::-webkit-scrollbar-thumb {
+    background: #ffffffb1; /* Color del thumb */
+    border-radius: 10px; /* Bordes redondeados del thumb */
+}
+
+.contenedor::-webkit-scrollbar-thumb:hover {
+    background: #0091ff; /* Color del thumb al pasar el mouse */
 }
